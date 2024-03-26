@@ -9,15 +9,15 @@ Link da distribuição de tarefas Trello:
 <br>
 <h3>Integrantes:</h3>
 <ul>
-<li>- Ana Paula Kelm Soares</li>
-<li>- Beatriz Martins Cabral</li>
-<li>- Carla Morais</li>
-<li>- Eva Luana Almeida da Silva</li>
-<li>- Letícia dos Santos</li>
-<li>- Maria Eduarda Abreu</li>
-<li>- Paula Borges</li>
-<li>- Renata Biagioni Wrobleski</li>
-<li>- Sarah Affonço</li>
+<li>Ana Paula Kelm Soares</li>
+<li>Beatriz Martins Cabral</li>
+<li>Carla Morais</li>
+<li>Eva Luana Almeida da Silva</li>
+<li>Letícia dos Santos</li>
+<li>Maria Eduarda Abreu</li>
+<li>Paula Borges</li>
+<li>Renata Biagioni Wrobleski</li>
+<li>Sarah Affonço</li>
 </ul>
 <h3>Divisão e organização entre os exercícios:</h3>
 <br>    
