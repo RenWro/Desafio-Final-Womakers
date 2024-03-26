@@ -20,8 +20,11 @@ Link da distribuição de tarefas Trello:
 <li>- Sarah Affonço</li>
 </ul>
 <h3>Divisão e organização entre os exercícios:</h3>
-<br>
-[<img height="48px" width="48px" alt="Icone Trello" src="https://cdn.icon-icons.com/icons2/3041/PNG/512/trello_logo_icon_189227.png"/>](https://trello.com/b/2TH5CzmX/squad-marie-curie-womakers-code)
+<br>    
+<a href="https://trello.com/b/2TH5CzmX/squad-marie-curie-womakers-code" target="_blank">
+      <img height="48px" width="48px" alt="Icone Trello" src="https://cdn.icon-icons.com/icons2/3041/PNG/512/trello_logo_icon_189227.png">
+</a>
+
 <br>
 <h3>Modelo de Banco de Dados:</h3>
 <br>
