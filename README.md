@@ -23,6 +23,10 @@ Link da distribuição de tarefas Trello:
       <img height="48px" width="48px" alt="Icone Trello" src="https://cdn.icon-icons.com/icons2/3041/PNG/512/trello_logo_icon_189227.png">
 </a>
 
+<a href="https://drawsql.app/teams/squadmariecurrie/diagrams/books" target="_blank">
+ <img height="48px" width="48px" alt="icone drawsql" src="https://pbs.twimg.com/profile_images/1016937460167684101/9wRBzBNZ_400x400.jpg">
+</a>
+
 <br>
 <h3>Modelo de Banco de Dados:</h3>
 <br>
