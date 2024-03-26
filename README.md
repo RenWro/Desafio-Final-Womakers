@@ -1,5 +1,3 @@
-# Desafio Final Womakers
-
 <h1>Projeto Final - WoMakers Code</h1>
 <h3>Squad Marie Curie + Jill Tarter</h3>
 
