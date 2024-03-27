@@ -6,7 +6,7 @@
 
 
 2. criando ambiente
-    Livraria:  python -m venv livraria
+    Livraria:  python -m venv livraria .
     Seleciona a pasta: cd .\livraria\ 
     ativa o venv: .\Scripts\activate
 
