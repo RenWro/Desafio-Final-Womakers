@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from cliente.forms import EnderecoForm, ClienteForm
 
 # Create your views here.
@@ -21,4 +22,5 @@ def cadastrar_cliente(request):
         'cliente_form': cliente_form,
         'sucesso': sucesso
         }
-    return render(request, 'cadastro.html', contexto)
+    return HttpResponse(cliente_form.as_p() + endereco_form.as_p())
+#    return render(request, 'cadastro.html', contexto)
