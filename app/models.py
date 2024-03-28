@@ -27,6 +27,9 @@ class Usuario(models.Model):
 
 
 class Autores(models.Model):
+    class Meta:
+        verbose_name_plural = 'Autores'
+        
     nome = models.CharField(max_length=150)
     sobrenome = models.CharField(max_length=150)
 
@@ -35,6 +38,9 @@ class Autores(models.Model):
 
 
 class Pedidos(models.Model):
+    class Meta:
+        verbose_name_plural = 'Pedidos'
+
     STATUS_CHOICES = [
         ('PENDENTE', 'Pendente'),
         ('EM_PROCESSAMENTO', 'Em Processamento'),
@@ -47,12 +53,12 @@ class Pedidos(models.Model):
 
 
 class Livro(models.Model):
-    isbn = models.IntegerField()
-    titulo = models.CharField(max_length=150)
-    valor = models.FloatField()
-    estoque = models.IntegerField()
-    descricao = models.CharField(max_length=200)
-    editora = models.ForeignKey(Editora, on_delete=models.DO_NOTHING)
-    id_genero = models.ForeignKey(Genero, on_delete=models.DO_NOTHING)
-    autores = models.ManyToManyField(Autores)
+        isbn = models.IntegerField()
+        titulo = models.CharField(max_length=150)
+        valor = models.FloatField()
+        estoque = models.IntegerField()
+        descricao = models.CharField(max_length=200)
+        editora = models.ForeignKey(Editora, on_delete=models.DO_NOTHING)
+        id_genero = models.ForeignKey(Genero, on_delete=models.DO_NOTHING)
+        autores = models.ManyToManyField(Autores)
 

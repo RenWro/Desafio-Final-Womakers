@@ -5,5 +5,4 @@ from django.http import HttpResponse
 app_name= 'Livros'
 urlpatterns = [
     path('', listar_livros)
-
 ]
