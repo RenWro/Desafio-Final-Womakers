@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 # Create your models here.
 
@@ -13,19 +14,24 @@ class Endereco (models.Model):
         return self.cep
 
 class Cliente (models.Model):
-    cpf = models.CharField(max_length=11, primary_key=True)
+    cpf = models.CharField(max_length=11, primary_key=True, unique=True)
     nome = models.CharField(max_length=50)
-    email = models.EmailField(max_length=50)
+    email = models.EmailField(max_length=50, unique=True)
     telefone = models.CharField(max_length=13)
     data_cadastro = models.DateTimeField(auto_now_add=True)
     endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE)
     senha = models.CharField(max_length=50)
     # pedidos = models.ManyToManyField(Pedido)  # Campo ManyToManyField, para completar precisa criar um models para pedidos. 
+    
+    def criptografia(self, *args, **kwargs):
+        self.senha = make_password(self.senha)
+        super().save(**args, **kwargs)
+    
     def __str__(self):
         return f'{self.nome}: {self.nome} - {self.cpf}'
     class Meta: 
-        verbose_name = 'Cadastro de usuário'
-        verbose_name_plural = 'Cadastro de usuários'
+        verbose_name = 'Cadastro de cliente'
+        verbose_name_plural = 'Cadastro de clientes'
         ordering = ['-data_cadastro']
 
 

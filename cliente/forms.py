@@ -11,3 +11,4 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = ['cpf', 'nome', 'email', 'telefone', 'endereco', 'senha']
+        widgets = {'senha': forms.PasswordInput()}
