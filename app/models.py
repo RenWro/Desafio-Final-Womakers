@@ -7,7 +7,13 @@ class Editora(models.Model):
 
 
 class Genero(models.Model):
+    class Meta:
+        verbose_name_plural = 'Generos'
+
     nome = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.nome
 
 
 class Usuario(models.Model):
@@ -23,6 +29,9 @@ class Usuario(models.Model):
 class Autores(models.Model):
     nome = models.CharField(max_length=150)
     sobrenome = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.nome
 
 
 class Pedidos(models.Model):
