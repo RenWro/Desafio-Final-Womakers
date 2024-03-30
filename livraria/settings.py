@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'cliente',
+    'pagamento',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +125,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PAYPAL_RECEIVER_EMAIL = 'sb-i8hit30199572@business.example.com' # pra onde vai o dinheiro WOMAKERS LIBRARY
+PAYPAL_TEST = True
+
+
+# MERCADOPAGO = { 
+#     'autoprocess': True, 
+#     'success_url': 'myapp:mp_success', 
+#     'failure_url': 'myapp:mp_failure', 
+#     'pending_url': 'myapp:mp_pending', 
+#     'base_host': 'https://www. meusite.com' 
+# }
