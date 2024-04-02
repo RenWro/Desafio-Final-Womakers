@@ -1,4 +1,5 @@
- 
+# Configurando o projeto 
+
 1. No terminal de comando verifique:
  Instalação python:python --version
  Instalação pip: pip --version 
@@ -22,18 +23,20 @@
 
 ------------------------
 
-Requirements
+## Requirements
 
-Para instalar todos as bibliotecas 
+- Para instalar todos as bibliotecas, use o requirements.txt
 
-Entrar no ambiente virtual, e depois 
+Entrar no seu ambiente virtual, e depois 
 ```
 pip install -r requirements.txt
 ```
 
-Para atualizar os requirements
+- Para atualizar os requirements
 
 Entrar no ambiente virtual, e depois 
 ```
 pip freeze > requirements.txt
 ```
+
+> Evite enviar para o git o **pyvenv.cfg**, e as pastas **Lib** e **Scripts**
