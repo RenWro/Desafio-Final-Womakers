@@ -5,7 +5,7 @@ from cliente.models import Cliente
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.contrib.auth.hashers import check_password
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def cadastrar_cliente(request):
@@ -30,10 +30,6 @@ def cadastrar_cliente(request):
     return HttpResponse(cliente_form.as_p() + endereco_form.as_p())
 #    return render(request, 'cadastro.html', contexto)
 
-def logout_cliente(request):
-    logout(request)
-    return redirect('home')  # direciona para a pagina inicial apor logout
-
 def verificar_cadastro(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -42,21 +38,34 @@ def verificar_cadastro(request):
             usuario = Cliente.objects.get(email=email)
             if(check_password(password = senha, encoded=usuario.senha)):
                 return HttpResponse('Logado')
-                #return render(request, 'cadastro_logado.html', {'usuarios': Cliente.objects.all()})
+                #return render(request, 'login.html', {'usuarios': Cliente.objects.all()})
             else:
                 return HttpResponse('Senha Incorreta')
         else: 
             return HttpResponse('Usuário não cadastrado')
     elif request.method=='GET' or 'email' in request.GET:
-        email_busca = request.GET.get('email')
-        usuario = Cliente.objects.filter(email__icontains=email_busca)
-        return HttpResponse(usuario)    
+        #email_busca = request.GET.get('email')
+        #usuario = Cliente.objects.filter(email__icontains=email_busca)
+        return HttpResponse('login')  #(usuario)    
     else:
         return HttpResponse('Método não permitido')
     
     
+@login_required #(login_url="/cliente/login/")
+def consultar_perfil(request):
+    usuario = request.user
+    return render(request, 'perfil.html', {'usuario': usuario})
+    
+@login_required #(login_url="/cliente/login/")    
+def logout_cliente(request):
+    logout(request)
+    return redirect('home')  # direciona para a pagina inicial apor logout
+
+@login_required #(login_url="/cliente/login/")
 def excluir_cadastro(request, usuario_id):
     usuario = get_object_or_404(Cliente, pk=usuario_id)
     usuario.delete()
     return HttpResponse('Usuario excluido')
-    #return render(request, 'cadastro_logado.html', {'usuarios': Cliente.objects.all()})
+    #return render(request, 'home.html', {'usuarios': Cliente.objects.all()})
+
+

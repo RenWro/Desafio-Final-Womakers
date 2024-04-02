@@ -19,3 +19,21 @@
     Django version 5.0.3, using settings 'livraria.settings'
     Starting development server at http://127.0.0.1:8000/
     Quit the server with CTRL-BREAK.)
+
+------------------------
+
+Requirements
+
+Para instalar todos as bibliotecas 
+
+Entrar no ambiente virtual, e depois 
+```
+pip install -r requirements.txt
+```
+
+Para atualizar os requirements
+
+Entrar no ambiente virtual, e depois 
+```
+pip freeze > requirements.txt
+```
