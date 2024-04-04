@@ -48,9 +48,10 @@ def login_cliente(request):
             return HttpResponse('Usuário não cadastrado')
     # acho que essa linha é inutil pr a funcao consultar_perfil faz a mesma coisa
     elif request.method == 'GET' or 'email' in request.GET:
-        email_busca = request.GET.get('email')
-        cliente = Cliente.objects.filter(email__icontains=email_busca)
-        return HttpResponse('login')  # (cliente)
+        #email_busca = request.GET.get('email')
+        #cliente = Cliente.objects.filter(email__icontains=email_busca)
+        #return HttpResponse('login')  # (cliente)
+         return render(request, 'login.html')
     else:
         return HttpResponse('Método não permitido')
 
