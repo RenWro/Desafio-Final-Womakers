@@ -16,13 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from app.views import main
+from livro.views import listar_livros
 from pagamento import urls as pagamento_urls  # Renomeado para uma nomenclatura mais genérica
 
 urlpatterns = [
-    path('', main),
+    path('', listar_livros),
     path('admin/', admin.site.urls),
-    path('livros/', include('app.urls')),
     path('cliente/', include('cliente.urls', namespace='cliente')),
     path('pagamento/', include(pagamento_urls)),
     path('', include('paypal.standard.ipn.urls')),
