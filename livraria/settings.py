@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cliente',
     'pagamento',
     'paypal.standard.ipn',
+    'pedidos',
     'livro',
     'bootstrap5',
 ]

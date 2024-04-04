@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos do Cliente</title>
+</head>
+<body>
+    <h1>Pedidos do Cliente</h1>
+    <ul>
+        {% for pedido in pedidos %}
+            <li>
+                <p><a href="{% url 'detalhes_pedido' pedido.id %}">Número do Pedido: {{ pedido.id }}</a></p>
+                <p>Data do Pedido: {{ pedido.data_pedido }}</p>
+                <p>Status: {{ pedido.status }}</p>
+                <p>Valor Total: R$ {{ pedido.valor_total }}</p>
+                <p>Forma de Pagamento: {{ pedido.forma_pagamento }}</p>
+                <!-- Adicione mais detalhes do pedido conforme necessário -->
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
