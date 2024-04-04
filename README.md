@@ -31,3 +31,48 @@ Link da distribuição de tarefas Trello:
 <h3>Modelo de Banco de Dados:</h3>
 <br>
 O modelo de banco de dados pode ser encontrado no link a seguir e também no mermaid diagram abaixo
+
+---
+
+# Configurando o projeto 
+
+1. No terminal de comando verifique:
+ Instalação python: `python --version`
+ Instalação `pip: pip --version`
+ Se necessário atualize: `python -m pip install --upgrade pip` 
+
+3. Criando e ativando ambiente virtual
+    ```
+   python -m venv .venv
+    ```
+    ```     
+    ativa o venv: .\Scripts\activate
+    ``` 
+
+5. instalando django:  `pip install Django` 
+    instalando djanjo paypal > `pip install django-paypal`
+    Confirmar funcionamento : `python manage.py runserver`
+    (devolve March 25, 2024 - 15:12:01
+    Django version 5.0.3, using settings 'livraria.settings'
+    Starting development server at http://127.0.0.1:8000/
+    Quit the server with CTRL-BREAK.)
+
+------------------------
+
+## Requirements
+
+- Para instalar todos as bibliotecas, use o requirements.txt
+
+Entrar no seu ambiente virtual, e depois 
+```
+pip install -r requirements.txt
+```
+
+- Para atualizar os requirements
+
+Entrar no ambiente virtual, e depois 
+```
+pip freeze > requirements.txt
+```
+
+> Evite enviar para o git o **pyvenv.cfg**, e as pastas **Lib** e **Scripts**

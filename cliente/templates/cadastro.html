@@ -1,4 +1,4 @@
-{% extends "inicio.html" %}
+{% comment %} {% extends "inicio.html" %}
 {% load bootstrap5 %}
 {% block principal %}
 
@@ -8,8 +8,34 @@
   {% else %}
   <form action="" method="POST" id="form">
     {% csrf_token %}
-    {% bootstrap_form form %}
+    {% bootstrap_form cliente_form %}
     <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
   </form>
   {% endif %}
-{% endblock %}
+{% endblock %} {% endcomment %}
+
+
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{# Display a form #}
+<form method="post" class="form">
+  {% csrf_token %}
+  <h2>Dados Pessoais</h2>
+  {% bootstrap_form cliente_form %}
+  <h2>Endereço</h2>
+  {% bootstrap_form endereco_formset.form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      Cadastrar
+    </button>
+  {% endbuttons %}
+</form>
+
