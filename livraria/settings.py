@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'pagamento',
     'paypal.standard.ipn',
     'livro',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -128,21 +129,22 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-PAYPAL_RECEIVER_EMAIL = 'sb-i8hit30199572@business.example.com' # pra onde vai o dinheiro WOMAKERS LIBRARY
+# pra onde vai o dinheiro WOMAKERS LIBRARY
+PAYPAL_RECEIVER_EMAIL = 'sb-i8hit30199572@business.example.com'
 PAYPAL_TEST = True
 
 
-# MERCADOPAGO = { 
-#     'autoprocess': True, 
-#     'success_url': 'myapp:mp_success', 
-#     'failure_url': 'myapp:mp_failure', 
-#     'pending_url': 'myapp:mp_pending', 
-#     'base_host': 'https://www. meusite.com' 
+# MERCADOPAGO = {
+#     'autoprocess': True,
+#     'success_url': 'myapp:mp_success',
+#     'failure_url': 'myapp:mp_failure',
+#     'pending_url': 'myapp:mp_pending',
+#     'base_host': 'https://www. meusite.com'
 # }
 
-#static files (css, Js, img)
-STATIC_URL='/static/'
+# static files (css, Js, img)
+STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [ 
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
