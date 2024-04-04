@@ -43,10 +43,13 @@ def verificar_cadastro(request):
                 return HttpResponse('Senha Incorreta')
         else: 
             return HttpResponse('Usuário não cadastrado')
+    
     elif request.method=='GET' or 'email' in request.GET:
         #email_busca = request.GET.get('email')
         #usuario = Cliente.objects.filter(email__icontains=email_busca)
-        return HttpResponse('login')  #(usuario)    
+        #return HttpResponse('login')  #(usuario)
+        return render(request, 'login.html')
+        
     else:
         return HttpResponse('Método não permitido')
     
