@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .forms import LivroForm
 from .models import Livro, Genero, Autores
+from pedidos.models import Pedido
 
 def main(request):
     return render(request, 'main.html')
@@ -30,3 +31,13 @@ def listar_livros(request):
     }
 
     return render(request, 'listar_livros.html', contexto)
+
+
+def listar_pedidos_cliente(request, cliente_id):
+    # Filtra os pedidos do cliente e os ordena por data, da mais recente para a mais antiga
+    pedidos = Pedido.objects.filter(cliente_id=cliente_id).order_by('-data_pedido')
+    return render(request, 'listar_pedidos_cliente.html', {'pedidos': pedidos})
+
+def detalhar_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, pk=pedido_id)
+    return render(request, 'detalhes_pedido.html', {'pedido': pedido})
