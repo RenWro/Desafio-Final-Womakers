@@ -1,0 +1,44 @@
+<!-- {% extends "inicio.html" %}
+{% load bootstrap5 %}
+{% block principal %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Pedido</title>
+</head>
+<body>
+    <h1>Detalhes do Pedido</h1>
+    <p>Número do Pedido: {{ pedido.id }}</p>
+    <!-- <p>Cliente: {{ pedido.cliente.username }}</p> -->
+    <p>Data do Pedido: {{ pedido.data_pedido }}</p>
+    <p>Status: {{ pedido.status }}</p>
+    <p>Total: R$ {{ pedido.valor_total }}</p>
+    <!-- <p>Forma de Pagamento: {{ pedido.forma_pagamento }}</p> -->
+
+    <h2>Itens do Pedido:</h2>
+    <ul>
+        {% for item in pedido.itens_pedido.all %}
+            <li>
+                <strong>Livro:</strong> {{ item.livro.titulo }}<br>
+                <!-- <strong>ISBN:</strong> {{ item.livro.isbn }}<br> -->
+                <!-- <strong>Valor Unitário:</strong> R$ {{ item.valor_unitario }}<br> -->
+                <strong>Quantidade:</strong> {{ item.quantidade }}<br>
+                <strong>Subtotal:</strong> R$ {{ item.valor_unitario|mul:item.quantidade }}<br>
+                <strong>Descrição:</strong> {{ item.livro.descricao }}<br>
+                <strong>Editora:</strong> {{ item.livro.editora.nome }}<br>
+                <!-- <strong>Gênero:</strong> {{ item.livro.id_genero.nome }}<br> -->
+                <strong>Autores:</strong>
+                <ul>
+                    {% for autor in item.livro.autores.all %}
+                        <li>{{ autor.nome }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

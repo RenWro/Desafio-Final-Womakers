@@ -19,5 +19,3 @@
     Django version 5.0.3, using settings 'livraria.settings'
     Starting development server at http://127.0.0.1:8000/
     Quit the server with CTRL-BREAK.)
-
-# tentando fazer novo commit     
