@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'cliente',
     'pagamento',
     'paypal.standard.ipn',
+    'livro',
 ]
 
 MIDDLEWARE = [
