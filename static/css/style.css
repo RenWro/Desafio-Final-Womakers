@@ -1,3 +1,8 @@
+body {
+    background:#F9F7F3;
+        background-attachment: fixed;
+        }
+        
 .header{
     position: absolute;
     width: 2105px;
@@ -32,6 +37,7 @@
 
 .search-input-submit:hover {    
     background-color: #0fa3b4; 
+    font-family: "Montserrat", sans-serif;
 }
 
 .utilities-item{
@@ -67,5 +73,6 @@
   .nav-link.active {
     display: block;
     margin: 0 auto;
+    font-family: 'Tiltillium Web', sans-serif; 
 }
   

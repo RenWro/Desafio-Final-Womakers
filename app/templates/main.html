@@ -12,6 +12,7 @@
   
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   
 
 
@@ -36,13 +37,12 @@
   <header>
     <div class="col-md-3 col-lg-3 col img img-md-left">
                                     
-      <div id="logo" class="logo-img-container ">
-          <a href="{%static 'img\logo\WomakersLibPng.png'%}" title=""><img src="{%static 'img\logo\WomakersLibPng.png'%}" alt="Womakers Lib" class="logo-img transition-soft " width="150" height=""></a>        
+      <div id="logo" class="logo-img-container">
+        <a href="{% static 'img/logo/WomakersLibPng.png' %}" title=""><img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="150" height=""></a>
       </div>
-    </div>
 
     <form class="search-container" action="/search/" method="get">
-      <input class="search-input form-control search-input" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?" aria-label="O que você está buscando?">
+      <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?" >
       <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar"><i class="bi bi-search justify left"></i>        
       </button>
     </form>
@@ -57,7 +57,7 @@
       </div>
       
       <div id="login" class="login-button transition-soft utility-head text-center" data-component="login-button">
-        <a href="#" >
+        <a href="" >
           <span class="icon-container"> <i class="bi bi-person-fill"></i>
           </span>
         </a>
@@ -69,32 +69,7 @@
     <a class="nav-link active " aria-current="page" href="#">Categorias</a>
   </nav>
 
-  <div class="card-deck">
-    <div class="card">
-      <img class="card-img-top" src=".../100px200/" alt="Imagem de capa do card">
-      <div class="card-body">
-        <h5 class="card-title">Título do card</h5>
-        <p class="card-text">Este é um card mais longo com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional. Este conteúdo é um pouco maior.</p>
-        <p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src=".../100px200/" alt="Imagem de capa do card">
-      <div class="card-body">
-        <h5 class="card-title">Título do card</h5>
-        <p class="card-text">Este é um card com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
-        <p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src=".../100px200/" alt="Imagem de capa do card">
-      <div class="card-body">
-        <h5 class="card-title">Título do card</h5>
-        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional. Este card tem o conteúdo ainda maior que o primeiro, para mostrar a altura igual, em ação.</p>
-        <p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>
-      </div>
-    </div>
-  </div>
+  
 
     
     
