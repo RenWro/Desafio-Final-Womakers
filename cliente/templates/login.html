@@ -1,25 +1,43 @@
+{% load static %}
+
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <h1>Login</h1>
-        <p>Faça seu login</p>
-    
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        
-        <script src="" async defer></script>
-    </body>
-</html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href="/">
+    <link rel="stylesheet" href="static\css\login.css">
+
+    <title>Login</title>
+
+
+ </head>
+
+  <body>
+    <div class="login">
+      <form class="form-signin">
+          <div id="logo" class="logo-img-container">
+              <a href="{% static 'img/logo/WomakersLibPng.png' %}" title=""><img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="150" height=""></a>
+            </div>
+        <h1 class="h3 mb-3 font-weight-normal">Faça login</h1>
+        <label for="inputEmail" class="sr-only">Endereço de email</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Seu email" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="">
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Lembrar de mim
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button class="btn btn-lg btn-secundary btn-block" type="submit">Equeceu sua senha?</button>
+
+    </form>
+
+
+</body></html>
+
