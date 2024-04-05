@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from pedidos.models import Pedido
+from pedidos.models import Pedido, Carrinho
+from livro.models import Livro
+from django.http import JsonResponse
 # Create your views here.
 
 def listar_pedidos_cliente(request, cliente_id):
@@ -33,7 +35,46 @@ def finalizar_pedido(request, cliente_id):
     return render(request, 'detalhes_pedido.html', {'formulario': formulario})
 
 
+def ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
+def detalhar_carrinho(request):
+    item_carr, novo_item = Carrinho.objects.novo_ou_existente(request)
+    livros = [{
+        "id": x.id,
+        "url": x.get_absolute_url(), 
+        "titulo": x.titulo, 
+        "valor": x.valor
+        } for x in item_carr.livros.all()]
+    data = {"livros": livros, "subtotal": item_carr.subtotal, "total": item_carr.total}
+    return JsonResponse(data)
+
+def atualizar_carrinho(request):
+    livro_id = request.POST.get('livro_id')
+    if livro_id is not None:
+        try:
+            item_livro = Livro.objects.get(id=livro_id)
+        except Livro.DoesNotExist:
+            print("Esse livro acabou!")
+            return redirect("home.html")
+        item_carr, novo_item = Carrinho.objects.novo_ou_existente(request)
+        if item_livro in item_carr.livros.all():
+            item_carr.livros.remove(item_livro)
+            adicionar = False
+        else:
+            item_carr.livros.add(item_livro)
+            adicionar = True
+        request.session['cart_items'] = item_carr.livros.count() # login do usuário, talvez tenha q alterar
+        if ajax(request):
+            print("Ajax request")
+            json_data = {
+                "adicionar": adicionar,
+                "remover": not adicionar,
+                "contagemLivros": item_carr.livros.count()
+            }
+            return JsonResponse(json_data)
+            #return JsonResponse({"message": "Erro 400"}, status = 400)
+    return redirect("home.html")
 
 '''
 CRIAR LÓGICA DO CARRINHO PRA FICAR NO SPAM

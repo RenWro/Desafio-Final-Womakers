@@ -49,8 +49,8 @@ O modelo de banco de dados pode ser encontrado no link a seguir e também no mer
     ativa o venv: .\Scripts\activate
     ``` 
 
-5. instalando django:  `pip install Django` 
-    instalando djanjo paypal > `pip install django-paypal`
+5. instalando django:  `pip install django` 
+    Instalando djanjo paypal > `pip install django-paypal`
     Confirmar funcionamento : `python manage.py runserver`
     (devolve March 25, 2024 - 15:12:01
     Django version 5.0.3, using settings 'livraria.settings'
