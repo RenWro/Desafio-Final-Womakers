@@ -6,6 +6,6 @@ from django.http import HttpResponse
 app_name= 'Livros'
 
 urlpatterns = [
-    path('', listar_livros)
-    path('', views.listar_livros)
+    path('', listar_livros),
+    path('', views.listar_livros),
 ]
