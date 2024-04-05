@@ -23,7 +23,8 @@ urlpatterns = [
     path('', listar_livros),
     path('admin/', admin.site.urls),
     path('cliente/', include('cliente.urls', namespace='cliente')),
-    path('pagamento/', include(pagamento_urls)),
+    path('pedido/', include('pedidos.urls', namespace='pedidos')),
+    # path('pagamento/', include(pagamento_urls)),
     path('', include('paypal.standard.ipn.urls')),
 ]
 
