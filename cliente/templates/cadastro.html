@@ -1,41 +1,43 @@
-{% comment %} {% extends "inicio.html" %}
 {% load bootstrap5 %}
-{% block principal %}
-
-  <h1 class="text-body-emphasis">Cadastro de usuário</h1>
-  {% if sucesso %}
-    <p class="alert alert-success"> Usuário cadastrado com sucesso</>
-  {% else %}
-  <form action="" method="POST" id="form">
-    {% csrf_token %}
-    {% bootstrap_form cliente_form %}
-    <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
-  </form>
-  {% endif %}
-{% endblock %} {% endcomment %}
-
-
-{# Load the tag library #}
-{% load bootstrap5 %}
-
-{# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
 
-{# Display a form #}
-<form method="post" class="form">
+<title>Cadastro</title>
+</br>
+<h1 style="text-align: center">Cadastro</h1>
+</br>
+
+<form  action="" method="post" class="form" enctype="multipart/form-data">
   {% csrf_token %}
+
   <h2>Dados Pessoais</h2>
   {% bootstrap_form cliente_form %}
+
   <h2>Endereço</h2>
-  {% bootstrap_form endereco_formset.form %}
+  {{ endereco_formset.management_form }}
+  {% for form in endereco_formset %}
+    {% bootstrap_form form%}
+  {% endfor %} 
+
   {% buttons %}
     <button type="submit" class="btn btn-primary">
       Cadastrar
     </button>
   {% endbuttons %}
+  
 </form>
 
+
+
+{% if not endereco_formset.is_valid %}
+    <div class="errors">
+        {{ endereco_formset.errors }}
+    </div>
+{% endif %}
+
+{% if not cliente_form.is_valid %}
+    <div class="errors">
+        {{ cliente_form.errors }}
+    </div>
+{% endif %}
