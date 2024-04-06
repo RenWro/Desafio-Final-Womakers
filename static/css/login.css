@@ -1,0 +1,15 @@
+.login {
+    display: grid;
+    place-items: center; 
+    background-color: #F9F7F3;
+    text-align: center;
+    
+  }
+  .h3{
+      font-family:"Montserrat", sans-serif;;
+  }    
+  
+  .sr-control, .submit  {
+      font-family:'Titillium Web', sans-serif;
+  }
+  

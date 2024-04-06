@@ -1,4 +1,8 @@
 {% load static %}
+
+{% load bootstrap5 %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,12 +21,17 @@
  </head>
 
   <body>
-    <div class="login">
+    <header>
+      <div class="col-md-3 col-lg-3 col img img-md-left">                                      
+        <div id="logo" class="logo-img-container">
+            <img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="150" height=""></a>
+        </div>
+      </div>
+    </header>
+
+    <div class="login d-flex justify-content-center align-items-center">
       <form class="form-signin">
-          <div id="logo" class="logo-img-container">
-              <a href="{% static 'img/logo/WomakersLibPng.png' %}" title=""><img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="150" height=""></a>
-            </div>
-        <h1 class="h3 mb-3 font-weight-normal">Faça login</h1>
+        <h1 class="h3 mb-3 titulo" >Faça login</h1>
         <label for="inputEmail" class="sr-only">Endereço de email</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Seu email" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Senha</label>
@@ -32,10 +41,9 @@
             <input type="checkbox" value="remember-me"> Lembrar de mim
           </label>
         </div>
+        
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         <button class="btn btn-lg btn-secundary btn-block" type="submit">Equeceu sua senha?</button>
-
     </form>
-
-
-</body></html>
+  </body>
+</html> 
