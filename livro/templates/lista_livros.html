@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros</title>
+</head>
+<body>
+    <h1>Livros</h1>
+    <p>Confira nosso catálogo de livros.</p>
+    </br>
+
+    
+        <!-- Lista de livros -->
+        <div class="row">
+            {% for livro in livros %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ livro.titulo }}</h5>
+                            <p class="card-text"> {{ livro.descricao }}</p>
+                            <p class="card-text">Autor(es): 
+                                {% for autor in livro.autores.all %}
+                                    {{ autor.nome }} 
+                                {% endfor %}
+                            </p>
+                            <p class="card-text"> Editora: {{ livro.editora.nome }}</p>
+                        </br>
+
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
