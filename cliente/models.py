@@ -12,10 +12,6 @@ class Cliente (models.Model):
     data_cadastro = models.DateTimeField(auto_now_add=True)
     senha = models.CharField(max_length=50)
 
-    def criptografia(self, *args, **kwargs):
-        self.senha = make_password(self.senha)
-        super().save(**args, **kwargs)
-
     def __str__(self):
         return f'{self.nome}: {self.nome} - {self.cpf}'
 

@@ -15,7 +15,6 @@ def cadastrar_cliente(request):
     if request.method == 'POST':
         cliente_form = ClienteForm(request.POST)
         endereco_formset = EnderecoFormSet(request.POST)
-        print(endereco_formset.is_valid(), cliente_form.is_valid())
         if endereco_formset.is_valid() and cliente_form.is_valid():
             cliente = cliente_form.save()
             endereco_formset.instance = cliente
@@ -38,21 +37,21 @@ def login_cliente(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         senha = request.POST.get('senha')
+
         if Cliente.objects.filter(email=email).exists():
             cliente = Cliente.objects.get(email=email)
             if (check_password(password=senha, encoded=cliente.senha)):
                 messages.success(request, 'Cliente logado com sucesso')
-                return redirect('perfil')
+                return redirect('/cliente/perfil')
             else:
                 messages.error(request, 'Usuário ou senha incorretos')
         else:
             messages.error(request, 'Usuário ou senha incorretos')
-        # usei render ao inves de redirect para manter os dados que o usuario escreveu na tela
-        return render(request, 'login.html')
+
     return render(request, 'login.html')
 
 
-@login_required(login_url="/cliente/login/")
+@login_required(login_url="login/")
 def consultar_perfil(request):
     cliente = request.user
     return render(request, 'perfil.html', {'cliente': cliente})
