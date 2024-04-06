@@ -11,7 +11,6 @@ class Cliente (models.Model):
     telefone = models.CharField(max_length=13)
     data_cadastro = models.DateTimeField(auto_now_add=True)
     senha = models.CharField(max_length=50)
-    # pedidos = models.ManyToManyField(Pedido)  # Campo ManyToManyField, para completar precisa criar um models para pedidos.
 
     def criptografia(self, *args, **kwargs):
         self.senha = make_password(self.senha)
@@ -27,7 +26,6 @@ class Cliente (models.Model):
 
 
 class Endereco (models.Model):
-    # Adicionando a chave estrangeira para Cliente
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     rua = models.CharField(max_length=100)
     numero = models.IntegerField()

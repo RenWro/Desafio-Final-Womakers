@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
-from cliente.forms import ClienteForm, EnderecoFormSet
+from cliente.forms import ClienteForm, EnderecoFormSet, EnderecoForm
 from cliente.models import Cliente
 from django.contrib.auth import logout
 from django.shortcuts import redirect
@@ -15,16 +15,17 @@ def cadastrar_cliente(request):
     if request.method == 'POST':
         cliente_form = ClienteForm(request.POST)
         endereco_formset = EnderecoFormSet(request.POST)
+        print(endereco_formset.is_valid(), cliente_form.is_valid())
         if endereco_formset.is_valid() and cliente_form.is_valid():
             cliente = cliente_form.save()
             endereco_formset.instance = cliente
             endereco_formset.save()
             sucesso = True
             messages.success(request, 'Cadastro efetuado com sucesso')
-    else:
-        messages.error(request, 'Erro no cadastro')
-        endereco_formset = EnderecoFormSet()
-        cliente_form = ClienteForm()
+        else:
+            messages.error(request, 'Erro no cadastro')
+    endereco_formset = EnderecoFormSet()
+    cliente_form = ClienteForm()
     contexto = {
         'endereco_formset': endereco_formset,
         'cliente_form': cliente_form,
@@ -46,7 +47,7 @@ def login_cliente(request):
                 messages.error(request, 'Usuário ou senha incorretos')
         else:
             messages.error(request, 'Usuário ou senha incorretos')
-        # usei render ao inves de redirect para panter os dados que o usuario escreveu na tela
+        # usei render ao inves de redirect para manter os dados que o usuario escreveu na tela
         return render(request, 'login.html')
     return render(request, 'login.html')
 
