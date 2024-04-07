@@ -32,14 +32,14 @@
         </div>
         </br>
     
-        {% comment %} <div class="container">
-          <form method="POST" action='/cliente/excluir/'>
+        <div class="container">
+          <form method="POST" action='/cliente/logout/'>
             {% csrf_token %}
-            <h2>Excluir Cadastro</h2>
-            <p>Deseja excluir este cadastro?</p>
-            <button id="excluirBtn">Excluir</button>    
+            <h2>Fazer Logout</h2>
+            <button id="excluirBtn">Logout</button>    
           </form>
-        </div> {% endcomment %}
+        </div>
+
         <div class="container">
         <form method="POST" action='/cliente/excluir/'>
             {% csrf_token %}
