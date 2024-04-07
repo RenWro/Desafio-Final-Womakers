@@ -27,17 +27,3 @@
   {% endbuttons %}
   
 </form>
-
-
-
-{% if not endereco_formset.is_valid %}
-    <div class="errors">
-        {{ endereco_formset.errors }}
-    </div>
-{% endif %}
-
-{% if not cliente_form.is_valid %}
-    <div class="errors">
-        {{ cliente_form.errors }}
-    </div>
-{% endif %}
