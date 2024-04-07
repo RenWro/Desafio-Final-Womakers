@@ -1,3 +1,10 @@
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +18,8 @@
     <body>
         <h1>Perfil do cliente</h1>
         </br>
+        <div class="container">
+
         <h3 class="card-title">{{ cliente.nome }}</h3>
         <p class="card-text">E-mail: {{ cliente.email }}</p>
         <p class="card-text">Telefone:  {{ cliente.telefone }}</p>
@@ -20,5 +29,31 @@
               {{ pedido }} 
             {% endfor %}
         </p>
-    </body>
+        </div>
+        </br>
+    
+        {% comment %} <div class="container">
+          <form method="POST" action='/cliente/excluir/'>
+            {% csrf_token %}
+            <h2>Excluir Cadastro</h2>
+            <p>Deseja excluir este cadastro?</p>
+            <button id="excluirBtn">Excluir</button>    
+          </form>
+        </div> {% endcomment %}
+        <div class="container">
+        <form method="POST" action='/cliente/excluir/'>
+            {% csrf_token %}
+            <h2>Excluir Cadastro</h2>
+            <p>Deseja excluir sou cadastro?</p>
+            <!-- Adiciona um campo de confirmação -->
+            <label for="confirmar">Tenho certeza de que quero excluir </label>
+            <input type="checkbox" id="confirmar" name="confirmar" required>
+            <br>
+            <button type="submit">Excluir</button>
+        </form>
+        </div>
+
+        
+
+</body>
 </html>

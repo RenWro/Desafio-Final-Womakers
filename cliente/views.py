@@ -68,8 +68,16 @@ def logout_cliente(request):
 
 
 @login_required(login_url="/cliente/login/")
-def excluir_cadastro(request, cliente_id):
-    cliente = get_object_or_404(Cliente, pk=cliente_id)
+def excluir(request):
+    cliente = request.user
     cliente.delete()
-    messages.success(request, 'Cadastro do cliente excluído com sucesso.')
+    messages.success(request, 'Cadastro excluído com sucesso.')
     return redirect('/')
+
+
+# @login_required(login_url="/cliente/login/")
+# def excluir_cadastro(request, cliente_id):
+#     cliente = get_object_or_404(Cliente, pk=cliente_id)
+#     cliente.delete()
+#     messages.success(request, 'Cadastro do cliente excluído com sucesso.')
+#     return redirect('/')

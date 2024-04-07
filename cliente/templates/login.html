@@ -1,14 +1,19 @@
 {% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
 <!DOCTYPE html>
 <html lang="en">
-
  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <link rel="stylesheet" href="..\..\static\css\style.css">
     <title>Login</title>
- </head>
+ </head> 
+
 
   <body>
     <div id="logo" class="logo-img-container">
@@ -32,8 +37,18 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         <button class="btn btn-lg btn-secundary btn-block" type="submit">Esqueceu sua senha?</button>
       </form>
-
     </div>  
+
+  </br>
+  </br>
+
+
+      <h4 class="h4 mb-4 font-weight-normal">Ainda não se cadastrou?</h4>
+      <form action="/cliente/cadastro/">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastre-se</button>
+      </form>
+
+
 
   </body>
 </html>
