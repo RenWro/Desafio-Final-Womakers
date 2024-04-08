@@ -1,44 +1,45 @@
 {% load static %}
 
-{% load bootstrap5 %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title> Login </title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <base href="/">
-    <link rel="stylesheet" href="static\css\login.css">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">  <title>Login</title>
+</head>
 
-    <title>Login</title>
-
-
- </head>
-
-  <body>
-    <header>
-      <div class="col-md-3 col-lg-3 col img img-md-left">                                      
-        <div id="logo" class="logo-img-container">
-            <img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="150" height=""></a>
-        </div>
+<body>
+  <header>
+    <div class="col-md-3 col-lg-3 col img-md-left">
+      <div id="logo" class="logo-img-container">
+        <img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="150" height="">
       </div>
-    </header>
+    </div>
+  </header>
 
-    <div class="login d-flex justify-content-center align-items-center">
-      <form class="form-signin">
-        <h1 class="h3 mb-3 titulo" >Faça login</h1>
-        <label for="inputEmail" class="sr-only">Endereço de email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Seu email" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Senha</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="">
-        
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        <button class="btn btn-lg btn-secundary btn-block" type="submit">Equeceu sua senha?</button>
-    </form>
+  <div class="page">
+    <form method="POST" class="formLogin">
+        <h1>Faça Login</h1>
+            <label for="inputEmail" class="sr-only">Endereço de email</label>            
+            <input type="email" id="inputEmail" class="form-control" placeholder="Seu email" required="" autofocus="">            
+            <label for="inputPassword" class="sr-only">Senha</label>            
+            <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="">            
+            <a class="label-link position-absolute top-0 right-0" id="forgot-password" href=" ">Esqueceu a senha?</a>
+            <div class="d-grid gap-2 d-md-block">          
+              <button class="btn btn-primary" id="submitButton" type="submit">Entrar</button>
+              <button class="btn btn-lg btn-secundary" id="submitButton" type="submit">Cadastrar?</button>
+            </div>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      
+      <p class="rodape-direitos">Copyright Womakers 2024. Todos os direitos reservados.</p>
+    </footer>
   </body>
-</html> 
+</html>
