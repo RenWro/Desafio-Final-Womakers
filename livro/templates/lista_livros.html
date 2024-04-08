@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,7 +22,7 @@
       
       <!-- importar css-->
       <base href="/">
-      <link rel="stylesheet" href="{% static 'css/style.css' %}">    
+      <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
     </head>
     
     <body>  
@@ -38,15 +39,17 @@
             
                 <div class="utilities-container">
                     <div id="cart" class="cart-summary transition-soft utility-head" data-component="cart-button">
-                    <a href="#">
-                        <span class="icon-container"><i class="bi bi-cart3"></i></span>
-                    </a>
-                </div>
+                        <a href="#">
+                            <span class="icon-container"><i class="bi bi-cart3"></i></span>
+                        </a>
+                    </div>
+                    
             
-                <div id="login" class="login-button transition-soft utility-head" data-component="login-button">
-                    <a href="#">
-                        <span class="icon-container"><i class="bi bi-person-fill"></i></span>
-                    </a>
+                    <div id="login" class="login-button transition-soft utility-head" data-component="login-button">
+                        <a href="#">
+                            <span class="icon-container"><i class="bi bi-person-fill"></i></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
