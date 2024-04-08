@@ -1,23 +1,75 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livros</title>
-</head>
-<body>
-    <h1>Livros</h1>
-    <p>Confira nosso catálogo de livros.</p>
-    </br>
-
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     
+      <!-- fontes-->     
+        <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+         
+      <title>HOME</title>
+      <!-- Bootstrap CSS -->
+    
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+      
+      <!-- importar css-->
+      <base href="/">
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">    
+    </head>
+    
+    <body>  
+        <header>
+            <div class="col-md-3 col-lg-3 col img img-md-left">
+                <div id="logo" class="logo-img-container">
+                    <img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="150" height=""></a>
+                </div>
+        
+                <form class="search-container" action="/search/" method="get">
+                    <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?" >
+                    <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar"><i class="bi bi-search justify left"></i></button>
+                </form>        
+            
+                <div class="utilities-container">
+                    <div id="cart" class="cart-summary transition-soft utility-head" data-component="cart-button">
+                    <a href="#">
+                        <span class="icon-container"><i class="bi bi-cart3"></i></span>
+                    </a>
+                </div>
+            
+                <div id="login" class="login-button transition-soft utility-head" data-component="login-button">
+                    <a href="#">
+                        <span class="icon-container"><i class="bi bi-person-fill"></i></span>
+                    </a>
+                </div>
+            </div>
+        </header>
+    
+        <nav class="navbar navbar-light" style="background-color: #0fa3b1;">
+            <p class="h1" ><h1> Livros</h1>></p>
+        </nav>
+
+       
+            <p>Confira nosso catálogo de livros.</p>
+            
         <!-- Lista de livros -->
         <div class="row">
             {% for livro in livros %}
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{ livro.titulo }}</h5>
+                            {% if livro.imagem %}
+                            <img src="{{ livro.imagem.url }}" class="img-fluid mb-3" alt="{{ livro.titulo }}">
+                        {% else %}
+                            <img src="{% static 'static\img\capas' %}" alt="Image unavailable" class="img-fluid mb-3">
+                        {% endif %}
+                                                    <h5 class="card-title">{{ livro.titulo }}</h5>
                             <p class="card-text"> {{ livro.descricao }}</p>
                             <p class="card-text">Autor(es): 
                                 {% for autor in livro.autores.all %}
@@ -25,9 +77,6 @@
                                 {% endfor %}
                             </p>
                             <p class="card-text"> Editora: {{ livro.editora.nome }}</p>
-                        </br>
-
-
                         </div>
                     </div>
                 </div>
@@ -35,5 +84,50 @@
         </div>
     </div>
 
-</body>
-</html>
+    
+
+        <footer class="js-hide-footer-while-scrolling display-when-content-ready" data-store="footer">                         
+            <div class="divider mb-5"></div>    
+                <div class="row element-footer">  
+                    <div class="col-md-9">
+                        <div class="footer-payments-shipping-logos">
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <div class="h3">Meios de pagamento</h4>
+                                </div>
+                                <div class="col-md-8">
+                                    <img src="{% static 'img\icons\banco.png' %}" class="icon-logo lazyloaded" alt="Rupay" width="40" height="25">
+                                    <img src= "{%static 'img\icons\master.png'%}"class="icon-logo lazyloaded" alt="MasterCard" width="40" height="25">
+                                    <img src="{% static 'img\icons\visa.png' %}" class="icon-logo lazyloaded" alt="VisaElectron" width="40" height="25">
+                                    
+                                </div>
+                                <div class="redes justify-left">
+                                    <div class="h3">Nos sigas nas redes</h4>
+                                </div>
+                                <div class="col-md-8 ">
+                                    <img src="{% static 'img\icons\twitter.png' %}" class="icon-logo lazyloaded" alt="twitter" width="40" height="25">
+                                    <img src= "{%static 'img\icons\linkedin.png'%}"class="icon-logo lazyloaded" alt="Linkedin" width="40" height="25">
+                                    <img src="{% static 'img\icons\facebook.png' %}" class="icon-logo lazyloaded" alt="facebook" width="40" height="25">
+                                    <img src="{% static 'img\icons\instagram.png' %}" class="icon-logo lazyloaded" alt="ig" width="40" height="25">
+                                    
+                                </div>
+                            </div>                  
+                        </div>
+                    </div>      
+                </div>
+            </div>
+            <div class="js-footer-legal footer-legal" style="padding-bottom: 60px;">
+                <div class="container-fluid px-md-5">
+                    <div class="row">    
+                     <div class="col-md-9 text-md-left mb-3 mb-md-0">
+                        <div class="d-inline-block mr-md-2">
+                            Copyright Womakers 2024. Todos os direitos reservados.
+                        </div>                        
+                    </div>                   
+                </div>
+            </div>
+            </div>
+        </footer>
+         
+    </body>
+    </html>
