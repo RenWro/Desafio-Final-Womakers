@@ -143,11 +143,9 @@ PAYPAL_TEST = True
 #     'base_host': 'https://www. meusite.com'
 # }
 
-# static files (css, Js, img)
-STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'livro', 'static'),
 ]
 
 AUTH_USER_MODEL = "cliente.Cliente"
