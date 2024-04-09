@@ -1,0 +1,123 @@
+/* Cor de fundo da página */
+body {
+    background-color: #F9F7F3;
+}
+
+/* Estilização do separador */
+.separator {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    background-color: #B5E2FA;
+    font-family: "Titillium Web", sans-serif;
+    color: black;
+}
+/* Espaço dado no topo das sections da página */
+section {
+    margin-top: 30px;
+}
+
+/* Estilização do Título do livro */
+.book-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 43px;
+    margin-bottom: 30px;
+}
+/* Estilização das informações do livro */
+.info {
+    display: block;
+    font-family: "Titillium Web", sans-serif;
+}
+.info h4{
+    display: inline-block;
+    padding: 4px 20px;
+    width: max-content;
+    min-width: 250px;
+    background-color: #D9D9D9;
+}
+/* Espaço entre o preço e as outras informações */
+.info:nth-child(4) {
+    margin-top: 20px;
+}
+/* Estilização dos botões */
+/* Espaço entre as informações e os botões */
+.btns {
+    margin-top: 15px;
+}
+/* Estilização do botão de compra */
+.buy-btn {
+    margin-left: 20px;
+    background: linear-gradient(306deg, rgba(246,136,77,1) 10%, rgba(255,203,175,1) 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 5px 20px;
+    color: white;
+    font-weight: bold;
+    background-size: 200% 100%;
+}
+ /* Animação suave para quando passar o mouse por cima do botão */
+.buy-btn:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+/* Estilização da sinopse do livro */
+/* Espaço entre a sinopse e a parte de compra da página */
+.sinopse {
+    margin-top: 50px;
+}
+/* Estilização do texto da sinopse */
+.sinopse p{
+    font-size: 26px;
+    font-family: "Titillium Web", sans-serif;
+    text-align: center;
+    width: 60ch;
+
+}
+/* Estilização da ficha técnica */
+/* Espaço entre a ficha e a sinopse */
+.datasheet {
+    margin-top: 50px;
+}
+.datasheet h1 {
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* Estilização formulário de frete */
+.frete {
+    margin-top: 40px;
+    font-family: "Titillium Web", sans-serif;
+    font-size: 18px;
+}
+.frete p {
+    display: inline-block;
+}
+.frete input {
+    height: 38px;
+    border-radius: 20px;
+}
+.frete button {
+    padding:5px 12px;
+    border-radius: 25px;
+}
+
+/* Estilização do footer */
+footer {
+    margin-top: 100px;
+}
+.payments p {
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 600;
+}
+.socials p {
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+}
+
