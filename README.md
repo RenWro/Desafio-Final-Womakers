@@ -46,8 +46,10 @@ O modelo de banco de dados pode ser encontrado no link a seguir e também no mer
    python -m venv .venv
     ```
     ```     
-    ativa o venv: .\Scripts\activate
+    ativa o venv (Windows): .\Scripts\activate
+    ativa o venv (Linux ou MacOS): source .venv/bin/activate
     ``` 
+
 
 5. instalando django:  `pip install django` 
     Instalando djanjo paypal > `pip install django-paypal`

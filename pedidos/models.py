@@ -81,6 +81,20 @@ class Pedido(models.Model):
     estado = models.CharField(max_length=20)
     cep = models.CharField(max_length=10)
 
+    '''
+    adicionar em Pedido:
+        itens = models.ManyToManyField(Livro)
+
+        pedido.itens.add(livro)
+
+    acessar itens:
+        pedido = Pedido.objects.get(pk=1)
+
+        for livro in pedido.itens.all():
+            print(livro.titulo)for livro in pedido.itens.all():
+
+    '''
+
     def calcular_valor_total(self):
         valor_total = 0
         for item in self.itens_pedido.all():
