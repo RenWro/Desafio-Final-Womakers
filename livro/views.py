@@ -30,25 +30,13 @@ def listar_livros(request):
 
     return render(request, 'lista_livros.html', contexto)
 
+
 def detalhe_livro(request, id=None):
     instance = get_object_or_404(Livro, id=id)
-    instance_autor = get_object_or_404(Autores, id=id)
-    instance_editora = get_object_or_404(Editora, id=id)
-    instance_genero = get_object_or_404(Genero, id=id)
     form_livro = LivroForm(request.GET)
 
     context = {
         'livro': instance,
-        'autor': instance_autor,
-        'editora': instance_editora,
-        'genero': instance_genero,
         'form_livro': form_livro,
     }
     return render(request, "detalhe_livro.html", context)
-
-def serve_imagem(request, livro_id):
-    livro = get_object_or_404(Livro, id=livro_id)
-    if livro.imagem_capa:
-        return HttpResponse(livro.imagem_capa, content_type='image/jpeg')
-    else:
-        return HttpResponse(status=404)

@@ -68,10 +68,13 @@
                 <div class="col">
                     <h2 class="book-title">{{ livro.titulo }}</h2>
                     <span class="info">
-                        <h4>Autor: {{ autor.nome }} {{ autor.sobrenome }}</h4>
+                        <h4>Autor:
+                        {% for autor in livro.autores.all %}
+                        {{ autor.nome }} {{ autor.sobrenome }}
+                        {% endfor %}</h4>
                     </span>
                     <span class="info">
-                        <h4>Editora: {{ editora.nome }} </h4>
+                        <h4>Editora: {{ livro.editora.nome }}
                     </span>
                     <span class="info">
                         <h4> {{ livro.valor }} </h4>
@@ -106,7 +109,7 @@
                         <tbody>
                           <tr>
                             <th scope="row">Editora</th>
-                            <td> {{ editora.nome }} </td>
+                            <td> {{ livro.editora.nome }} </td>
                           </tr>
                           <tr>
                             <th scope="row">ISBN</th>
@@ -114,7 +117,7 @@
                           </tr>
                           <tr>
                             <th scope="row">Gênero</th>
-                            <td>{{ genero.nome }} </td>
+                            <td>{{ livro.id_genero.nome }} </td>
                           </tr>
                         </tbody>
                       </table>
