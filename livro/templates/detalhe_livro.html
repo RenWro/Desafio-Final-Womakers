@@ -62,19 +62,19 @@
             <div class="row ">
                 <!-- Div que contém a imagem do livro-->
                 <div class="col-4">
-                    <img class="img-fluid" src="{% static './assets/img/livro.png' %}" alt="" width="335" height="509">
+                    <img class="img-fluid" src="{{ livro.imagem_capa.url }}" alt="{{ livro.titulo }}" width="335" height="509">
                 </div>
                 <!-- informações do livro -->
                 <div class="col">
-                    <h2 class="book-title">Um senhor notável</h2>
+                    <h2 class="book-title">{{ livro.titulo }}</h2>
                     <span class="info">
-                        <h4>Autor: xxxxxx</h4>
+                        <h4>Autor: {{ autor.nome }} {{ autor.sobrenome }}</h4>
                     </span>
                     <span class="info">
-                        <h4>Editora: xxxxx</h4>
+                        <h4>Editora: {{ editora.nome }} </h4>
                     </span>
                     <span class="info">
-                        <h4>R$: 00,00</h4>
+                        <h4> {{ livro.valor }} </h4>
                     </span>
                     <!-- Botões de compra e quantidade de itens -->
                     <div class="btns">
@@ -96,33 +96,25 @@
             </div>
             <!-- parte de descrição do livro -->
             <div class="row justify-content-center sinopse">
-                <p>
-                    Senhor Aparecido era um homem muito expressivo. Bastava apenas uma olhada e seu rosto ficava guardado na memória de qualquer um. Quando descobre o universo das selfies, elas se tornam uma obsessão. Mas não demora muito até que ele comece a perceber que sua face de belos contornos está ficando cada vez menos nítida.
-                </p>
+                <p> {{ livro.descricao }} </p>
             </div>
             <!-- parte da ficha técnica do livro -->
             <div class="row justify-content-center datasheet">
                 <h1>Ficha Tecnica</h1>
                 <div>
                     <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                          </tr>
-                        </thead>
                         <tbody>
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
+                            <th scope="row">Editora</th>
+                            <td> {{ editora.nome }} </td>
                           </tr>
                           <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
+                            <th scope="row">ISBN</th>
+                            <td>{{ livro.isbn }} </td>
                           </tr>
                           <tr>
-                            <th scope="row">3</th>
-                            <td>Larry the Bird</td>
+                            <th scope="row">Gênero</th>
+                            <td>{{ genero.nome }} </td>
                           </tr>
                         </tbody>
                       </table>
