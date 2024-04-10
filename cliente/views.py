@@ -1,8 +1,7 @@
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
+from django.shortcuts import render
 from cliente.forms import ClienteForm, EnderecoFormSet
 from cliente.models import Cliente
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import logout, login
 from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.contrib.auth.hashers import check_password
