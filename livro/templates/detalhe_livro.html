@@ -27,7 +27,7 @@
     <!-- header da página -->
     <header class="container">
         <div class="row align-items-center">
-            <a class="col-2" href="index.html">
+            <a class="col-2" href="/">
                 <img class="img-fluid" src="{% static './assets/img/logo.png' %}" alt="" width="197" height="137">
             </a>
             <div class="col-8 row">
@@ -43,11 +43,11 @@
             <!-- navbar do menu de botões do header -->
             <nav class="col-2 nav justify-content-center">
                 <!-- botão de perfil do usuário -->
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" aria-current="page" href="/cliente/perfil/">
                     <img src="{% static './assets/svg/profile.svg' %}" alt="" width="46" height="46">
                 </a>
                 <!-- botão do carrinho -->
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/pedido/carrinho/">
                     <img src="{% static './assets/svg/cart.svg' %}" alt="" width="46" height="46">
                 </a>
             </nav>
