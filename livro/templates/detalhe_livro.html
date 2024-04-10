@@ -62,7 +62,7 @@
             <div class="row ">
                 <!-- Div que contém a imagem do livro-->
                 <div class="col-4">
-                    <img class="img-fluid" src="{{ livro.imagem_capa }}" alt="{{ livro.titulo }}" width="335" height="509">
+                    <img class="img-fluid" src="{% static 'media/' %}{{ livro.imagem_capa }}" alt="{{ livro.titulo }}" width="335" height="509">
                 </div>
                 <!-- informações do livro -->
                 <div class="col">
