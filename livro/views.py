@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from .forms import LivroForm, AutoresForm
 from .models import Livro, Genero, Autores, Editora
 from django.views.generic import ListView, DetailView
+from django.contrib import messages
 
 
 def listar_livros(request):
@@ -27,14 +28,17 @@ def listar_livros(request):
         'generos_atual': generos,
         'autores_atual': autores,
     }
-
     return render(request, 'lista_livros.html', contexto)
 
 
 def detalhe_livro(request, id=None):
-    instance = get_object_or_404(Livro, id=id)
-    form_livro = LivroForm(request.GET)
+    try:
+        instance = get_object_or_404(Livro, id=id)
+    except Http404:
+        messages.error(request, f'Livro com id={id} não localizado')
+        return redirect('/livro/')
 
+    form_livro = LivroForm(request.GET)
     context = {
         'livro': instance,
         'form_livro': form_livro,
