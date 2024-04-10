@@ -51,3 +51,4 @@ class Livro(models.Model):
     editora = models.ForeignKey(Editora, on_delete=models.DO_NOTHING)
     id_genero = models.ForeignKey(Genero, on_delete=models.DO_NOTHING)
     autores = models.ManyToManyField(Autores)
+    imagem_capa = models.ImageField(upload_to='img/livros/capas', null=True, blank=True)
