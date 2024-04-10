@@ -1,4 +1,5 @@
 {% load static %}
+ feat/front-login
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,3 +44,58 @@
     </footer>
   </body>
 </html>
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="..\..\static\css\style.css">
+    <title>Login</title>
+ </head> 
+
+
+  <body>
+    <div id="logo" class="logo-img-container">
+      <a href="{% static 'img/logo/WomakersLibPng.png' %}" title=""><img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="150" height=""></a>
+    </div>  
+
+    <div class="login">
+      <h1 class="h3 mb-3 font-weight-normal">Fazer login</h1>
+
+      <form class="form-signin" method="post" action="/cliente/login/">
+        {% csrf_token %}
+        <label for="inputEmail" class="sr-only">Endereço de email</label>
+        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Seu email" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" id="inputPassword" name="senha" class="form-control" placeholder="Senha" required="">
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Lembrar de mim
+          </label>
+        </div> 
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button class="btn btn-lg btn-secundary btn-block" type="submit">Esqueceu sua senha?</button>
+      </form>
+    </div>  
+
+  </br>
+  </br>
+
+
+      <h4 class="h4 mb-4 font-weight-normal">Ainda não se cadastrou?</h4>
+      <form action="/cliente/cadastro/">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastre-se</button>
+      </form>
+
+
+
+  </body>
+</html>
+ main

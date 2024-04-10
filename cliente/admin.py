@@ -3,8 +3,7 @@ from .models import Cliente
 
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ["nome",
-                    "endereco", "email", "telefone", "cpf"]
+    list_display = ["nome", "email", "telefone", "cpf"]
     search_fields = ['nome', 'endereco', 'email', 'cpf']
     list_filter = ['email']
 

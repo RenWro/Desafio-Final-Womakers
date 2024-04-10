@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
-from cliente.forms import ClienteForm, EnderecoFormSet, EnderecoForm
+from cliente.forms import ClienteForm, EnderecoFormSet
 from cliente.models import Cliente
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required
@@ -15,7 +16,6 @@ def cadastrar_cliente(request):
     if request.method == 'POST':
         cliente_form = ClienteForm(request.POST)
         endereco_formset = EnderecoFormSet(request.POST)
-        print(endereco_formset.is_valid(), cliente_form.is_valid())
         if endereco_formset.is_valid() and cliente_form.is_valid():
             cliente = cliente_form.save()
             endereco_formset.instance = cliente
@@ -23,7 +23,8 @@ def cadastrar_cliente(request):
             sucesso = True
             messages.success(request, 'Cadastro efetuado com sucesso')
         else:
-            messages.error(request, 'Erro no cadastro')
+            messages.error(
+                request, 'Erro no cadastro.')
     endereco_formset = EnderecoFormSet()
     cliente_form = ClienteForm()
     contexto = {
@@ -40,20 +41,21 @@ def login_cliente(request):
         senha = request.POST.get('senha')
         if Cliente.objects.filter(email=email).exists():
             cliente = Cliente.objects.get(email=email)
-            if (check_password(password=senha, encoded=cliente.senha)):
+            if (check_password(password=senha, encoded=cliente.password)):
+                login(request=request, user=cliente)
                 messages.success(request, 'Cliente logado com sucesso')
-                return redirect('perfil')
+                return redirect('/cliente/perfil/')
             else:
                 messages.error(request, 'Usuário ou senha incorretos')
         else:
             messages.error(request, 'Usuário ou senha incorretos')
-        # usei render ao inves de redirect para manter os dados que o usuario escreveu na tela
-        return render(request, 'login.html')
+
     return render(request, 'login.html')
 
 
 @login_required(login_url="/cliente/login/")
 def consultar_perfil(request):
+    print(request)
     cliente = request.user
     return render(request, 'perfil.html', {'cliente': cliente})
 
@@ -66,8 +68,16 @@ def logout_cliente(request):
 
 
 @login_required(login_url="/cliente/login/")
-def excluir_cadastro(request, cliente_id):
-    cliente = get_object_or_404(Cliente, pk=cliente_id)
+def excluir(request):
+    cliente = request.user
     cliente.delete()
-    messages.success(request, 'Cadastro do cliente excluído com sucesso.')
+    messages.success(request, 'Cadastro excluído com sucesso.')
     return redirect('/')
+
+
+# @login_required(login_url="/cliente/login/")
+# def excluir_cadastro(request, cliente_id):
+#     cliente = get_object_or_404(Cliente, pk=cliente_id)
+#     cliente.delete()
+#     messages.success(request, 'Cadastro do cliente excluído com sucesso.')
+#     return redirect('/')

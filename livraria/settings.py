@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'pedidos',
     'livro',
     'bootstrap5',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAYPAL_RECEIVER_EMAIL = 'sb-i8hit30199572@business.example.com'
 PAYPAL_TEST = True
 
+# armazenamento de arquivos estáticos
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # MERCADOPAGO = {
 #     'autoprocess': True,
@@ -142,9 +147,9 @@ PAYPAL_TEST = True
 #     'base_host': 'https://www. meusite.com'
 # }
 
-# static files (css, Js, img)
-STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'livro', 'static'),
 ]
+
+AUTH_USER_MODEL = "cliente.Cliente"

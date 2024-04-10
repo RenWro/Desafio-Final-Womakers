@@ -1,0 +1,162 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Womakers Lib</title>
+
+    <!-- Links do bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- link dos ícones do bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- link do estilo css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'estilo.css' %}">
+
+    <!-- links das fontes da tipografia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- header da página -->
+    <header class="container">
+        <div class="row align-items-center">
+            <a class="col-2" href="index.html">
+                <img class="img-fluid" src="{% static './assets/img/logo.png' %}" alt="" width="197" height="137">
+            </a>
+            <div class="col-8 row">
+                <!-- esse search bar foi tirado direto do site do bootstrap, nada diferente foi adicionado -->
+                <div class="input-group flex-nowrap">
+                    <input type="text" class="form-control input-bar" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
+                    <span class="input-group-text" id="addon-wrapping">
+                        <!-- ícone utilizado também direto do bootstrap -->
+                        <i class="bi bi-search"></i>
+                    </span>
+                  </div>
+            </div>
+            <!-- navbar do menu de botões do header -->
+            <nav class="col-2 nav justify-content-center">
+                <!-- botão de perfil do usuário -->
+                <a class="nav-link active" aria-current="page" href="#">
+                    <img src="{% static './assets/svg/profile.svg' %}" alt="" width="46" height="46">
+                </a>
+                <!-- botão do carrinho -->
+                <a class="nav-link" href="#">
+                    <img src="{% static './assets/svg/cart.svg' %}" alt="" width="46" height="46">
+                </a>
+            </nav>
+        </div>
+    </header>
+    <!-- separador está fora do header pois a classe container limita a largura do elemento, e ele precisava ocupar a largura total da página de acordo com o design-->
+    <span class="separator">
+        Categorias
+    </span>
+
+    <!-- conteúdo principal -->
+    <main>
+        <section class="container">
+            <!-- Parte de compra -->
+            <div class="row ">
+                <!-- Div que contém a imagem do livro-->
+                <div class="col-4">
+                    <img class="img-fluid" src="{{ livro.imagem_capa }}" alt="{{ livro.titulo }}" width="335" height="509">
+                </div>
+                <!-- informações do livro -->
+                <div class="col">
+                    <h2 class="book-title">{{ livro.titulo }}</h2>
+                    <span class="info">
+                        <h4>Autor: {{ autor.nome }} {{ autor.sobrenome }}</h4>
+                    </span>
+                    <span class="info">
+                        <h4>Editora: {{ editora.nome }} </h4>
+                    </span>
+                    <span class="info">
+                        <h4> {{ livro.valor }} </h4>
+                    </span>
+                    <!-- Botões de compra e quantidade de itens -->
+                    <div class="btns">
+                        <!-- botão de quantidade -->
+                        <input type="number" name="qtd" id="qtd" min="1" max="99" value="1">
+                        <!-- botão de compra -->
+                        <button class="buy-btn">
+                            Comprar
+                            <i class="bi bi-cart3"></i>
+                        </button>
+                    </div>
+                    <!-- Calculo de frete -->
+                    <div class="frete">
+                        <p>Calcule o frete</p>
+                        <input type="text">
+                        <button>Ok</button>
+                    </div>
+                </div>
+            </div>
+            <!-- parte de descrição do livro -->
+            <div class="row justify-content-center sinopse">
+                <p> {{ livro.descricao }} </p>
+            </div>
+            <!-- parte da ficha técnica do livro -->
+            <div class="row justify-content-center datasheet">
+                <h1>Ficha Tecnica</h1>
+                <div>
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <th scope="row">Editora</th>
+                            <td> {{ editora.nome }} </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">ISBN</th>
+                            <td>{{ livro.isbn }} </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Gênero</th>
+                            <td>{{ genero.nome }} </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Rodapé -->
+    <footer class="container">
+        <section class="row">
+            <!-- Parte de pagamentos -->
+            <div class="col-6 payments">
+                <p>Pague com</p>
+                <div>
+                    <img src="{% static './assets/img/forma-pagamento-1.png' %}" alt="" width="89" height="58">
+                    <img src="{% static './assets/img/forma-pagamento-2.png' %}" alt="" width="89" height="58">
+                    <img src="{% static './assets/img/forma-pagamento-3.png' %}" alt="" width="89" height="58">
+                </div>          
+            </div>
+            <!-- Parte de redes sociais -->
+            <div class="col-6 socials">
+                <p>Nos siga nas redes</p>
+                <nav class="nav justify-content-center">
+                    <a class="nav-link active" aria-current="page" href="#">
+                        <img src="{% static './assets/svg/twitter.svg' %}" alt="" width="26" height="26">
+                    </a>
+                    <a class="nav-link" href="#">
+                        <img src="{% static './assets/svg/facebook.svg' %}" alt="" width="26" height="26">
+                    </a>
+                    <a class="nav-link" href="#">
+                        <img src="{% static './assets/svg/linkedin.svg' %}" alt="" width="26" height="26">
+                    </a>
+                    <a class="nav-link" href="#">
+                        <img src="{% static './assets/svg/instagram.svg' %}" alt="" width="26" height="26">
+                    </a>
+                </nav>
+            </div>
+        </section>
+    </footer>
+
+    <!-- Outro separador -->
+    <span class="separator"></span>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

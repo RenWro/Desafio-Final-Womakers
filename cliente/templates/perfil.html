@@ -1,24 +1,59 @@
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Perfil do Cliente</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
     </head>
     <body>
         <h1>Perfil do cliente</h1>
-        <p>usuario.name</p>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+        </br>
+        <div class="container">
+
+        <h3 class="card-title">{{ cliente.nome }}</h3>
+        <p class="card-text">E-mail: {{ cliente.email }}</p>
+        <p class="card-text">Telefone:  {{ cliente.telefone }}</p>
+        <p class="card-text">CPF: {{ cliente.cpf }}</p>
+        <p class="card-text">Pedidos: 
+            {% for pedido in cliente.pedido.all %}
+              {{ pedido }} 
+            {% endfor %}
+        </p>
+        </div>
+        </br>
+    
+        <div class="container">
+          <form method="POST" action='/cliente/logout/'>
+            {% csrf_token %}
+            <h2>Fazer Logout</h2>
+            <button id="excluirBtn">Logout</button>    
+          </form>
+        </div>
+
+        <div class="container">
+        <form method="POST" action='/cliente/excluir/'>
+            {% csrf_token %}
+            <h2>Excluir Cadastro</h2>
+            <p>Deseja excluir sou cadastro?</p>
+            <!-- Adiciona um campo de confirmação -->
+            <label for="confirmar">Tenho certeza de que quero excluir </label>
+            <input type="checkbox" id="confirmar" name="confirmar" required>
+            <br>
+            <button type="submit">Excluir</button>
+        </form>
+        </div>
+
         
-        <script src="" async defer></script>
-    </body>
+
+</body>
 </html>

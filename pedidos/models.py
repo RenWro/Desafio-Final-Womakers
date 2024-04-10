@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from decimal import Decimal
 from django.db.models.signals import pre_save, post_save, m2m_changed
 from livro.models import Livro
-from cliente.models import Endereco
+from cliente.models import Cliente
 
 # Mudar o user para cliente
+
+
 class GerenciadorCarrinho(models.Manager):
     def novo_ou_existente(self, request):
         carrinho_id = request.session.get("carrinho_id", None)
@@ -29,40 +31,48 @@ class GerenciadorCarrinho(models.Manager):
                 cliente = user
         return self.model.objects.create(user=cliente)
 
+
 class Carrinho(models.Model):
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank = True)
-    livros = models.ManyToManyField(Livro, blank = True)
-    subtotal = models.DecimalField(default = 0.00, max_digits=100, decimal_places = 2)
-    total = models.DecimalField(default = 0.00, max_digits=100, decimal_places = 2)
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE, null=True, blank=True)
+    livros = models.ManyToManyField(Livro, blank=True)
+    subtotal = models.DecimalField(
+        default=0.00, max_digits=100, decimal_places=2)
+    total = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
 
     objects = GerenciadorCarrinho()
 
     def __str__(self):
         return str(self.id)
 
-def modificacao_carrinho(sender, instance, action, *args, **kwargs):
-  if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
-    livros = instance.livros.all() 
-    total = 0 
-    for livro in livros: 
-      total += livro.valor 
-    if instance.subtotal != total:
-      instance.subtotal = total
-      instance.save()
 
-m2m_changed.connect(modificacao_carrinho, sender = Carrinho.livros.through)
+def modificacao_carrinho(sender, instance, action, *args, **kwargs):
+    if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
+        livros = instance.livros.all()
+        total = 0
+        for livro in livros:
+            total += livro.valor
+        if instance.subtotal != total:
+            instance.subtotal = total
+            instance.save()
+
+
+m2m_changed.connect(modificacao_carrinho, sender=Carrinho.livros.through)
+
 
 def pre_salvar_carrinho(sender, instance, *args, **kwargs):
     if instance.subtotal > 0:
-        instance.total = Decimal(instance.subtotal) 
+        instance.total = Decimal(instance.subtotal)
     else:
         instance.total = 0.00
 
-pre_save.connect(pre_salvar_carrinho, sender = Carrinho)
+
+pre_save.connect(pre_salvar_carrinho, sender=Carrinho)
+
 
 class Pedido(models.Model):
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE)
-    data_pedido = models.DateTimeField(auto_now_add=True)    
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    data_pedido = models.DateTimeField(auto_now_add=True)
     valor_total = models.DecimalField(max_digits=10, decimal_places=2)
     forma_pagamento = models.CharField(max_length=20)
     rua = models.CharField(max_length=100)
@@ -70,7 +80,6 @@ class Pedido(models.Model):
     cidade = models.CharField(max_length=20)
     estado = models.CharField(max_length=20)
     cep = models.CharField(max_length=10)
-
 
     def calcular_valor_total(self):
         valor_total = 0
