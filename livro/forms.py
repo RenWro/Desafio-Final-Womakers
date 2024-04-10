@@ -16,3 +16,11 @@ class LivroForm(forms.ModelForm):
         autores = Autores.objects.all()
         self.fields['id_genero'].queryset = generos
         self.fields['autores'].queryset = autores
+
+class AutoresForm(forms.ModelForm):
+    class Meta:
+        model = Autores
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

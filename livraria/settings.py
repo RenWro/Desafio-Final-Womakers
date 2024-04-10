@@ -134,6 +134,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAYPAL_RECEIVER_EMAIL = 'sb-i8hit30199572@business.example.com'
 PAYPAL_TEST = True
 
+# armazenamento de arquivos estáticos
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # MERCADOPAGO = {
 #     'autoprocess': True,
