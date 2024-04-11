@@ -65,7 +65,15 @@
     top: 149.76px;
 }
   .nav-link.active {
-    display: block;
+    display: flex;
     margin: 0 auto;
 }
-  
+
+.rodape-direitos{
+    width: calc(100% - 20px);
+    background-color: #0fa3b4;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 100px;
+  }
