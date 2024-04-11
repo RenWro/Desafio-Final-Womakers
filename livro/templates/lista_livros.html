@@ -27,62 +27,69 @@
     <link rel="stylesheet" href="{% static 'style.css' %}"> 
   </head>
     
-    <body>
-      <header class="container">
-        <div class="row align-items-center">
-          <a class="col-2" href="/">
-            <div class="logo-img-container" > 
-              <img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="190" height="130">
-            </div>
-          </a>
-          <div class="col-8 row">
-            <div class="input-group flex-nowrap">
-              <form class="search-container justify-content-center" action="/search/" method="get">
-              <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?">
-              <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar"><i class="bi bi-search justify left"></i></button>
-              </form>
-            </div>
+  <body>
+    <header class="container">
+      <div class="row align-items-center">
+        <a class="col-2" href="/">
+          <div class="logo-img-container" > 
+            <img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="190" height="130">
           </div>
-          <nav class="col-2 nav justify-content-center">
-            <a class="nav-link active" aria-current="page" href="/cliente/perfil/">
-              <img src="{% static './assets/svg/profile.svg' %}" alt="" width="46" height="46">
-            </a>
-            <a class="nav-link" href="/pedido/carrinho/">
-              <img src="{% static './assets/svg/cart.svg' %}" alt="" width="46" height="46">
-            </a>
-          </nav>
+        </a>
+        <div class="col-8 row">
+          <div class="input-group flex-nowrap">
+            <form class="search-container justify-content-center" action="/search/" method="get">
+            <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?">
+            <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar"><i class="bi bi-search justify left"></i></button>
+            </form>
+          </div>
         </div>
-      </header>
+        <nav class="col-2 nav justify-content-center">
+          <a class="nav-link active" aria-current="page" href="/cliente/perfil/">
+            <img src="{% static './assets/svg/profile.svg' %}" alt="" width="46" height="46">
+          </a>
+          <a class="nav-link" href="/pedido/carrinho/">
+            <img src="{% static './assets/svg/cart.svg' %}" alt="" width="46" height="46">
+          </a>
+        </nav>
+      </div>
     </header>
-    <span class="separator">
-      Categorias
-    </span>
+
+  <span class="separator">
+    Categorias
+  </span>
     
     <!-- Lista de livros -->
-    <main> 
-      <div class="row">
-          {% for livro in livros %}
-              <div class="col-md-4 mb-4">
-                  <div class="card" style = "width: 35 rem;">
-                      <div class="card-body">
-                          {% if livro.imagem_capa %}
-                            <img src="{% static 'media/' %}{{ livro.imagem_capa }}" class="img-fluid mb-3" alt="{{ livro.titulo }}" width="80">
-                          {% else %}
-                            <img src="{% static 'media/unavailable.jpg' %}" alt="Image unavailable" class="img-fluid mb-3" width="26">
-                          {% endif %}
-                          <h5 class="card-title">{{ livro.titulo }}</h5>
-                          <p class="card-text">Autor(es): 
-                          {% for autor in livro.autores.all %}
-                              {{ autor.nome }} {{ autor.sobrenome }}
-                          {% endfor %}
-                          </p>
-                          <a href="/livro/detalhe_livro/{{livro.id}}" class="btn-livros btn-primary">Ver Mais</a>
-                      </div>
+    <main>
+      <div class="row g-0">
+        {% for livro in livros %}
+          <div class="col-md-3 mb-4">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="d-flex flex-row">
+                  {% if livro.imagem_capa %}
+                  <img src="{% static 'media/' %}{{ livro.imagem_capa }}" class="img-fluid rounded-start align-self-center" alt="{{ livro.titulo }}" width="150" height="150">
+                  {% else %}
+                    <img src="{% static 'media/unavailable.jpg' %}" alt="Image unavailable" class="img-fluid mb-3" width="26">
+                  {% endif %}
+                <div class="card-body align-items-center">
+                  <div class="ml-3">
+                    <h5 class="card-title">{{ livro.titulo }}</h5>
+                    <p class="card-text">Autor(es): 
+                      {% for autor in livro.autores.all %}
+                        {{ autor.nome }} {{ autor.sobrenome }}
+                      {% endfor %}
+                    </p>
+                    <a href="/livro/detalhe_livro/{{livro.id}}" class="btn-livros btn-primary">Ver Mais</a>
                   </div>
+                </div>
               </div>
-          {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
       </div>
-  </main>
+    </main>
+    
+
+  
  
 
     <footer class="container">

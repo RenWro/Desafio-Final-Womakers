@@ -1,8 +1,10 @@
+
+
+
 body{
   position: relative;
   background-color: #F9F7F3;
 }
-
 
 .container {
   position: relative;
@@ -20,6 +22,7 @@ body{
   height: 73px;
   width:100% ;
 }
+
 .search-input {
   flex: 1;
   border: none;
@@ -79,6 +82,12 @@ body{
   color: black;
 }
 
+.card{
+  background-color:#F9F7F3 ;
+  border:none !important;
+  
+
+}
 
 footer {
   margin-top: 100px;
