@@ -25,48 +25,31 @@
       </a>
     </div>
   </header>
-  
 
+  <div class="container page">
+    </br><h1>Detalhes do carrinho</h1></br>
 
-    <div class="container page">
-    </br>
-    <h1>Perfil do cliente</h1>
-    </br>
+    <h2 class="card-title">Olá {{ cliente.nome }}! </h2>
+    {% if carrinho_vazio %}
 
-    <h4 class="card-title">{{ cliente.nome }}</h4>
-    <p class="card-text">E-mail: {{ cliente.email }}</p>
-    <p class="card-text">Telefone:  {{ cliente.telefone }}</p>
-    <p class="card-text">CPF: {{ cliente.cpf }}</p>
-    <p class="card-text">
-      Pedidos: 
-        {% for pedido in cliente.pedido.all %}
-          {{ pedido }} 
+      {{ carrinho }}
+
+    {%else%}
+      
+      <p class="card-text">
+      Itens adicionados ao carrinho: 
+        {% for item in carrinho %}
+          <h4>{{item.titulo}}</h4>
+          <p>Quantidade: {{ item.quantidade }} </p>
+          <p>Valor Unitário: {{item.valor}} </p>
         {% endfor %}
-    </p>
+      </p>
     </div>
     </br>
 
-    <div class="container page">
-      <form method="POST" action='/cliente/logout/'>
-        {% csrf_token %}
-        <h4>Fazer Logout</h4>
-        <button id="excluirBtn" class="btn" >Logout</button>    
-      </form>
-    </div>
-    </br>
 
-    <div class="container page">
-    <form method="POST" action='/cliente/excluir/'>
-        {% csrf_token %}
-        <h4>Deseja excluir seu cadastro?</h4>
-        <label for="confirmar">Tenho certeza de que quero excluir </label>
-        <input type="checkbox" id="confirmar" name="confirmar" required>
-        </br>
-        <button type="submit" class="btn" >Excluir</button>
-    </form>
-    </div>
-    </br>
-
+    {%endif%}
+  </div>  
   <footer class="container">
     <span class="separator">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

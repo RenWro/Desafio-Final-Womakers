@@ -3,7 +3,9 @@ from django.http import Http404, JsonResponse
 from django.contrib import messages
 from .forms import LivroForm
 from .models import Livro, Genero, Autores
-from pedidos.models import Carrinho, ItemCarrinho
+from pedidos.models import Carrinho, Pedido, CarrinhoLivro
+from cliente.models import Cliente
+
 
 def listar_livros(request):
     livros = Livro.objects.all()
@@ -44,16 +46,14 @@ def detalhe_livro(request, id=None):
     }
     return render(request, "detalhe_livro.html", context)
 
-def adicionar_ao_carrinho(request):
-    if request.method == 'POST' and request.is_ajax():
-        livro_id = request.POST.get('livro_id')
-        livro = get_object_or_404(Livro, id=livro_id)        
-        carrinho, cria = Carrinho.objects.novo_ou_existente(request)
-        livro_carrinho, novo_livro = ItemCarrinho.objects.get_or_create(carrinho=carrinho, livro=livro)
-        
-        if not novo_livro:
-            livro_carrinho.quantidade += 1 
-            livro_carrinho.save()
 
-        return JsonResponse({'success': True})    
-    return JsonResponse({'error': 'Invalid request'})
+def adicionar_ao_carrinho(request):
+    livro_id = request.POST['livro_id']
+    quantidade = request.POST['quantidade']
+    cliente = request.user
+    carrinho = Carrinho()
+    carrinho.add_item_carrinho(
+        cliente_id=cliente.id, livro_id=livro_id, quantidade=quantidade)
+
+    messages.success(request, 'Livro adicionado ao carrinho')
+    return redirect(f'/livro/detalhe_livro/{livro_id}')

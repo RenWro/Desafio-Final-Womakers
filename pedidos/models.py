@@ -5,64 +5,99 @@ from django.conf import settings
 from decimal import Decimal
 from livro.models import Livro
 from cliente.models import Cliente
+from enumfields import EnumField
+from enum import Enum
 
-class GerenciadorCarrinho(models.Manager):
-    def novo_ou_existente(self, request):
-        carrinho_id = request.session.get("carrinho_id", None)
-        consultas = self.get_queryset().filter(id=carrinho_id)
-        if consultas.count() == 1:
-            novo = False
-            livro_carrinho = consultas.first()
-            if request.user.is_authenticated and livro_carrinho.user is None:
-                livro_carrinho.user = request.user
-                livro_carrinho.save()
-        else:
-            livro_carrinho = Carrinho.objects.new(user=request.user)
-            novo = True
-            request.session['carrinho_id'] = livro_carrinho.id
-        return livro_carrinho, novo
 
-    def novo(self, user=None):
-        cliente = None
-        if user is not None:
-            if user.is_authenticated:
-                cliente = user
-        return self.model.objects.create(user=cliente)
+#    /* ------Enum Fields ----- */
+
+
+class StatusPedido(Enum):
+    PENDENTE = 'PagamentoPendente'
+    CONFIRMADO = 'Pagamento Confirmado'
+    CAMINHO = 'A caminho'
+    ENTREGUE = 'Entregue'
+
+
+class FormaPagamento(Enum):
+    PIX = 'Pix'
+    CREDITO = 'Cartão de crétido'
+    DEBITO = 'Cartão de débito'
+
+#    /* ----------------------- */
+
 
 class Carrinho(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    livros = models.ManyToManyField(Livro, through='ItemCarrinho')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE)
+    # livros = models.ManyToManyField(Livro)
 
-class ItemCarrinho(models.Model):
-    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE)
-    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField(default=1)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    def add_item_carrinho(self, cliente_id, livro_id, quantidade=1):
+        livro = Livro.objects.get(pk=livro_id)
+        cliente = Cliente.objects.get(pk=cliente_id)
 
-def pre_salvar_carrinho(sender, instance, *args, **kwargs):
-    if instance.subtotal > 0:
-        instance.total = Decimal(instance.subtotal)
-    else:
-        instance.total = 0.00
+        # Verifica se o cliente já tem um carrinho
+        carrinho = cliente.carrinho_set.first()
+        if not carrinho:
+            carrinho = Carrinho.objects.create(cliente=cliente)
+            carrinho.save()
 
-pre_save.connect(pre_salvar_carrinho, sender=Carrinho)
+        # Verifica se o livro já está no carrinho
+        carrinho_livro, created = CarrinhoLivro.objects.get_or_create(
+            carrinho=carrinho, livro=livro)
+        if not created:
+            carrinho_livro.quantidade += int(quantidade)
+        else:
+            carrinho_livro.quantidade = quantidade
+        carrinho_livro.save()
 
-class Pedido(models.Model):
+    def atualizar_quantidade(self, livro, nova_quantidade=1):
+        print('atualizarQuantidade()')
+        pass
+
+    def ver_detalhes(self):
+        detalhes = []
+        for item in self.carrinholivro_set.all():
+            detalhes.append({
+                'titulo': item.livro.titulo,
+                'quantidade': item.quantidade,
+                'valor': item.livro.valor,
+                # 'subtotal': item.quantidade * item.livro.preco
+            })
+        return detalhes
+
+    def finaliza_pedido(self):
+        print('finalizarPedido()')
+        pass
+
+
+# Classe que relaciona a quantidade de livros a classe Livros
+class CarrinhoLivro(models.Model):
+    carrinho = models.ForeignKey(
+        Carrinho, on_delete=models.CASCADE, null=True, blank=True)
+    livro = models.ForeignKey(
+        Livro, on_delete=models.CASCADE, null=True, blank=True)
+    quantidade = models.PositiveIntegerField(default=1, null=True, blank=True)
+    data_hora_item_criado = models.DateTimeField(auto_now_add=True)
+    data_hora_item_atualizado = models.DateTimeField(auto_now=True)
+
+
+class Pedido(models.Model):  #
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data_pedido = models.DateTimeField(auto_now_add=True)
     valor_total = models.DecimalField(max_digits=10, decimal_places=2)
     forma_pagamento = models.CharField(max_length=20)
-    rua = models.CharField(max_length=100)
-    numero = models.IntegerField()
-    cidade = models.CharField(max_length=20)
-    estado = models.CharField(max_length=20)
-    cep = models.CharField(max_length=10)
+    status = EnumField(StatusPedido, max_length=20,
+                       default=StatusPedido.PENDENTE)
+    forma_de_pagamento = EnumField(
+        FormaPagamento, max_length=20, default=FormaPagamento.CREDITO)
 
     def calcular_valor_total(self):
         valor_total = 0
         for item in self.itens_pedido.all():
             valor_total += item.valor_unitario * item.quantidade
         return valor_total
+
+    def finalizar_pedido(self):
+        print('finalizar_pedido()')
+        pass
