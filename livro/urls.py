@@ -10,8 +10,7 @@ app_name = 'Livros'
 urlpatterns = [
     path('', listar_livros),
     path('detalhe_livro/<int:id>/', detalhe_livro),
+    path('adicionar-ao-carrinho/', views.adicionar_ao_carrinho, name='adicionar_ao_carrinho'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
