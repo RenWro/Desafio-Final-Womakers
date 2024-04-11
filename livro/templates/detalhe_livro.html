@@ -85,14 +85,17 @@
                         <h4> {{ livro.valor }} </h4>
                     </span>
                     <!-- Botões de compra e quantidade de itens -->
-                    <form action="#">
+                    <form method="POST" action="/livro/adicionar-ao-carrinho/">
+                        {% csrf_token %}
                         <div class="btns">
                             <!-- botão de quantidade -->
-                            <input type="number" name="qtd" id="qtd" min="1" max="99" value="1">
+                            <input type="number" name="quantidade" min="1" max="99" value="1">
+                            <input type="hidden" name="livro_id" value="{{ livro.id }}">
+                            <input type="hidden" name="cliente_id" value="{{ cliente.id }}">
+
                             <!-- botão de compra -->
-                            {% csrf_token %}
-                            <button type="submit" class="buy-btn" data-livro-id="{{ livro.id }}" data-action="add">
-                                Comprar
+                            <button type="submit" class="buy-btn" data-action="add">
+                                Adicionar ao Carrinho
                                 <i class="bi bi-cart3"></i>
                             </button>
                         </div>

@@ -23,7 +23,7 @@ def cadastrar_cliente(request):
             messages.success(request, 'Cadastro efetuado com sucesso')
         else:
             messages.error(
-                request, 'Erro no cadastro.')
+                request, f'Erro no cadastro. {cliente_form.errors}, {endereco_formset.errors}')
     endereco_formset = EnderecoFormSet()
     cliente_form = ClienteForm()
     contexto = {

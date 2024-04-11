@@ -27,43 +27,28 @@ class FormaPagamento(Enum):
 #    /* ----------------------- */
 
 
-# class GerenciadorCarrinho(models.Manager):
-#     def novo_ou_existente(self, request):
-#         carrinho_id = request.session.get("carrinho_id", None)
-#         consultas = self.get_queryset().filter(id=carrinho_id)
-#         if consultas.count() == 1:
-#             novo = False
-#             livro_carrinho = consultas.first()
-#             if request.user.is_authenticated and livro_carrinho.user is None:
-#                 livro_carrinho.user = request.user
-#                 livro_carrinho.save()
-#         else:
-#             livro_carrinho = Carrinho.objects.new(user=request.user)
-#             novo = True
-#             request.session['carrinho_id'] = livro_carrinho.id
-#         return livro_carrinho, novo
-
-#     def novo(self, user=None):
-#         cliente = None
-#         if user is not None:
-#             if user.is_authenticated:
-#                 cliente = user
-#         return self.model.objects.create(user=cliente)
-
-
 class Carrinho(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    livros = models.ManyToManyField(Livro, through='CarrinhoLivro')
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE)
+    livros = models.ManyToManyField(
+        Livro, through='CarrinhoLivro')
 
-    # def pre_salvar_carrinho(sender, instance, *args, **kwargs):
-    # if instance.subtotal > 0:
-    #     instance.total = Decimal(instance.subtotal)
-    # else:
-    #     instance.total = 0.00
+    def add_item_carrinho(self, cliente_id, livro_id, quantidade=1):
+        livro = Livro.objects.get(pk=livro_id)
+        carrinho = Carrinho(cliente_id=cliente_id)
+        carrinho.save()
 
-    def add_item_carrinho(self, livro, quantidade=1):
-        print('addItemCarrinho()')
-        pass
+        # Verifica se o livro já está no carrinho
+        carrinho_livro, created = CarrinhoLivro.objects.get_or_create(
+            carrinho=carrinho, livro=livro)
+
+        if not created:
+            # Se o livro já estiver no carrinho, atualiza a quantidade
+            carrinho_livro.quantidade += quantidade
+        else:
+            # Se o livro não estiver no carrinho, cria uma nova instância de CarrinhoLivro
+            carrinho_livro.quantidade = quantidade
+        carrinho_livro.save()
 
     def atualizar_quantidade(self, livro, nova_quantidade=1):
         print('atualizarQuantidade()')
@@ -87,14 +72,13 @@ class Carrinho(models.Model):
         pass
 
 
-# pre_save.connect(pre_salvar_carrinho, sender=Carrinho)
-
-
 # Classe que relaciona a quantidade de livros a classe Livros
 class CarrinhoLivro(models.Model):
-    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE)
-    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField(default=1)
+    carrinho = models.ForeignKey(
+        Carrinho, on_delete=models.CASCADE, null=True, blank=True)
+    livro = models.ForeignKey(
+        Livro, on_delete=models.CASCADE, null=True, blank=True)
+    quantidade = models.PositiveIntegerField(default=1, null=True, blank=True)
     data_hora_item_criado = models.DateTimeField(auto_now_add=True)
     data_hora_item_atualizado = models.DateTimeField(auto_now=True)
 
