@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from pedidos.models import Pedido, Carrinho
 from livro.models import Livro
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 # PRIMEIRO CARRINHO DEPOIS PEDIDOS
 
@@ -12,10 +14,20 @@ def ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
+@login_required
 def detalhes_carrinho(request):
-    detalhes_do_carrinho = Carrinho.ver_detalhes(request.user)
+    cliente = request.user
+    detalhes_do_carrinho = 'Seu carrinho ainda está vazio.'
+    carrinho_vazio = True
+    if Carrinho.objects.filter(cliente=cliente).exists():
+        carrinho_do_usuario = Carrinho.objects.get(cliente=cliente)
+        detalhes_do_carrinho = carrinho_do_usuario.ver_detalhes()
+        carrinho_vazio = False
+
     context = {
+        'carrinho_vazio': carrinho_vazio,
         'carrinho': detalhes_do_carrinho,
+        'cliente': cliente
     }
     return render(request, 'detalhes_carrinho.html', context)
 

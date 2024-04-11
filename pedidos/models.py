@@ -72,19 +72,15 @@ class Carrinho(models.Model):
     def ver_detalhes(self):
         print('verDetalhes()')
 
-    #     def detalhes_carrinho(request):
-    # item_carr, novo_item = Carrinho.objects.novo_ou_existente(request)
-    # livros = [{
-    #     "id": x.id,
-    #     "url": x.get_absolute_url(),
-    #     "titulo": x.titulo,
-    #     "valor": x.valor
-    # } for x in item_carr.livros.all()]
-    # data = {"livros": livros, "subtotal": item_carr.subtotal,
-    #         "total": item_carr.total}
-    # return JsonResponse(data)
-
-        pass
+        detalhes = []
+        for item in self.CarrinhoLivro_set.all():
+            detalhes.append({
+                'livro': item.livro.titulo,
+                'quantidade': item.quantidade,
+                'preco_unitario': item.livro.preco,  # Supondo que 'Livro' tenha um campo 'preco'
+                'subtotal': item.quantidade * item.livro.preco
+            })
+        return detalhes
 
     def finaliza_pedido(self):
         print('finalizarPedido()')
