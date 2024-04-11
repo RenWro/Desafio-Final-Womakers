@@ -1,6 +1,9 @@
 <!-- {% extends "inicio.html" %}
-{% load bootstrap5 %}
 {% block principal %} -->
+
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_messages %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +11,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Pedido</title>
+  
+    <link rel="stylesheet" type="text/css" href="{% static 'css\detalhes_pedido.css'%}">
+
 </head>
 <body>
+    <header class="container">
+        <div class="row align-items-center">
+          <a class="col-2" href="/">
+            <div class="logo-img-container">
+              <img src="{% static 'assets\img\logo.png' %}" alt="Womakers Lib" class="logo-img transition-soft align-self-center" width="190" height="130">
+            </div>
+          </a>
+  
+        <span class="separator"></span>   
+    </header>
     <h1>Detalhes do Pedido</h1>
     <p>Número do Pedido: {{ pedido.id }}</p>
     <!-- <p>Cliente: {{ pedido.cliente.username }}</p> -->
@@ -38,7 +54,11 @@
                 </ul>
             </li>
         {% endfor %}
+        <a href=" " class="btn-checkout btn-primary">Finalizar compra</a>
     </ul>
+    <span class="separator"></span>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </body>
 </html>
 

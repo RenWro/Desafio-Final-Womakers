@@ -1,0 +1,39 @@
+body {
+    position: relative;
+    background-color: #F9F7F3;
+  }
+  
+
+.btn-livros {
+    background: linear-gradient(306deg, rgba(246, 136, 77, 1) 10%, rgba(255, 203, 175, 1) 100%);
+    cursor: pointer;
+    font-family: "Titillium Web", sans-serif;
+    color: #FFFFFF;
+    text-align: center;
+    border-radius: 10px;
+    width: 10rem;
+    height: 2.5rem;
+    padding: 5px 20px;
+    font-weight: bold;
+    border: none;
+    background-size: 200% 100%;
+    text-decoration: none;
+  }
+  
+  .btn-livros:hover {
+    cursor: pointer;
+    background-color: #EDDEA4;
+    display: flex;
+    text-decoration: none;
+  }
+  
+  .separator {
+    margin: 20px 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    background-color: #B5E2FA;
+    font-family: "Titillium Web", sans-serif;
+    color: black;
+  }
