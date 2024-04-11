@@ -14,7 +14,7 @@
 }
 
 .formCadastro {
-  display: flex;
+  display: block;
   flex-direction: column;
   padding: 40px;
   gap: 5px;
