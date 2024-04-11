@@ -31,15 +31,17 @@
     <header class="container">
       <div class="row align-items-center">
         <a class="col-2" href="/">
-          <div class="logo-img-container" > 
-            <img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft" width="190" height="130">
+          <div class="logo-img-container">
+            <img src="{% static 'img/logo/WomakersLibPng.png' %}" alt="Womakers Lib" class="logo-img transition-soft align-self-center" width="190" height="130">
           </div>
         </a>
         <div class="col-8 row">
           <div class="input-group flex-nowrap">
             <form class="search-container justify-content-center" action="/search/" method="get">
-            <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?">
-            <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar"><i class="bi bi-search justify left"></i></button>
+              <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?">
+              <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar">
+                <i class="bi bi-search justify-left"></i>
+              </button>
             </form>
           </div>
         </div>
@@ -64,16 +66,18 @@
         {% for livro in livros %}
           <div class="col-md-3 mb-4">
             <div class="card mb-3" style="max-width: 540px;">
-                <div class="d-flex flex-row">
-                  {% if livro.imagem_capa %}
+              <div class="d-flex flex-row">
+                {% if livro.imagem_capa %}
                   <img src="{% static 'media/' %}{{ livro.imagem_capa }}" class="img-fluid rounded-start align-self-center" alt="{{ livro.titulo }}" width="150" height="150">
-                  {% else %}
-                    <img src="{% static 'media/unavailable.jpg' %}" alt="Image unavailable" class="img-fluid mb-3" width="26">
-                  {% endif %}
-                <div class="card-body align-items-center">
+                {% else %}
+                  <img src="{% static 'media/unavailable.jpg' %}" alt="Image unavailable" class="img-fluid mb-3" width="26">
+                {% endif %}
+    
+                <div class="card-body d-flex flex-column align-items-start">
                   <div class="ml-3">
                     <h5 class="card-title">{{ livro.titulo }}</h5>
-                    <p class="card-text">Autor(es): 
+                    <p class="card-text">
+                      Autor(es):
                       {% for autor in livro.autores.all %}
                         {{ autor.nome }} {{ autor.sobrenome }}
                       {% endfor %}
