@@ -3,6 +3,27 @@ body {
     background-color: #F9F7F3;
 }
 
+.search-container {
+    background-color: #0fa3b1;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    height: 73px;
+    width:100% ;
+  }
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: #0fa3b4;
+    font-family: "Titillium Web", sans-serif;
+  }
+  
+  .search-input:hover {
+    background-color: #0fa3b4;
+  }
+
 /* Estilização do separador */
 .separator {
     margin-top: 20px;
@@ -60,7 +81,7 @@ section {
  /* Animação suave para quando passar o mouse por cima do botão */
 .buy-btn:hover {
     background-position: 100% 0;
-    moz-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
