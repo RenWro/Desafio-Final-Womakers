@@ -27,6 +27,17 @@ class FormaPagamento(Enum):
 #    /* ----------------------- */
 
 
+def converter_realbr_para_float(string_valor):
+    # Removendo caracteres que não são dígitos, ponto ou vírgula
+    numeros = ''.join(caractere for caractere in string_valor if caractere.isdigit(
+    ) or caractere == '.' or caractere == ',')
+    # Substituindo a vírgula por ponto (caso seja usada como separador decimal)
+    numeros = numeros.replace(',', '.')
+    # Convertendo para float
+    valor_float = float(numeros)
+    return valor_float
+
+
 class Carrinho(models.Model):
     cliente = models.ForeignKey(
         Cliente, on_delete=models.CASCADE)
@@ -60,9 +71,10 @@ class Carrinho(models.Model):
         for item in self.carrinholivro_set.all():
             detalhes.append({
                 'titulo': item.livro.titulo,
-                'quantidade': item.quantidade,
+                'quantidade': int(item.quantidade),
                 'valor': item.livro.valor,
-                # 'subtotal': item.quantidade * item.livro.preco
+                'valor_float': converter_realbr_para_float(item.livro.valor),
+                'subtotal': int(item.quantidade)*converter_realbr_para_float(item.livro.valor),
             })
         return detalhes
 
