@@ -23,6 +23,7 @@ class Autores(models.Model):
     def __str__(self):
         return self.nome
 
+
 class Livro(models.Model):
     isbn = models.IntegerField()
     titulo = models.CharField(max_length=150)
@@ -33,6 +34,11 @@ class Livro(models.Model):
     id_genero = models.ForeignKey(Genero, on_delete=models.DO_NOTHING)
     autores = models.ManyToManyField(Autores)
     imagem_capa = models.ImageField(upload_to='img/livros/capas', null=True, blank=True)
+
+    
+class Livros(models.Model):
+ imagem = models.ImageField(upload_to="{% static 'static\img\capas' %}")
+
 
 # class Pedidos(models.Model):
 #     class Meta:

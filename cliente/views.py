@@ -52,21 +52,20 @@ def login_cliente(request):
     return render(request, 'login.html')
 
 
-@login_required(login_url="/cliente/login/")
+@login_required
 def consultar_perfil(request):
-    print(request)
     cliente = request.user
     return render(request, 'perfil.html', {'cliente': cliente})
 
 
-@login_required(login_url="/cliente/login/")
+@login_required
 def logout_cliente(request):
     logout(request)
     messages.success(request, 'Logout realizado com sucesso.')
     return redirect('/')
 
 
-@login_required(login_url="/cliente/login/")
+@login_required
 def excluir(request):
     cliente = request.user
     cliente.delete()

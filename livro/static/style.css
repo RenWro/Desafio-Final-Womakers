@@ -8,11 +8,9 @@ body{
   position: relative;
 
 }
-
 .logo-img-container {
   margin-right: 300px;
 }
-
 
 .search-container {
   background-color: #0fa3b1;
@@ -22,7 +20,6 @@ body{
   height: 73px;
   width:100% ;
 }
-
 .search-input {
   flex: 1;
   border: none;
@@ -36,11 +33,6 @@ body{
   background-color: #0fa3b4;
 }
 
-footer {
-  margin-top: 100px;
-  background-color:#F9F7F3 ;
-}
-
 .payments p {
   font-family: "Titillium Web", sans-serif;
   font-weight: 600;
@@ -51,7 +43,6 @@ footer {
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
 }
-
 
 .btn-livros{
 
@@ -69,15 +60,13 @@ footer {
   background-size: 200% 100%;
 }
 
+
 .btn-livros:hover {
   cursor: pointer;
   background:#EDDEA4;
 }
 
 
-footer {
-  margin-top: 100px;
-}
 .separator {
   margin-top: 20px;
   margin-bottom: 40px;
@@ -88,4 +77,11 @@ footer {
   background-color: #B5E2FA;
   font-family: "Titillium Web", sans-serif;
   color: black;
+}
+
+
+footer {
+  margin-top: 100px;
+  background-color:#F9F7F3 ;
+  
 }

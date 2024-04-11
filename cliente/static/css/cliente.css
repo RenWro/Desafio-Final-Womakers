@@ -13,6 +13,14 @@
   align-items: center;
 }
 
+.formCadastro {
+  display: block;
+  flex-direction: column;
+  padding: 40px;
+  gap: 5px;
+  align-items: center;
+}
+
 .formLogin h1 {
   padding: 0;
   margin: 0;
