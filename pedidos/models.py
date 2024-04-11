@@ -1,12 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from decimal import Decimal
 from django.db.models.signals import pre_save, post_save, m2m_changed
+from django.conf import settings
+from decimal import Decimal
 from livro.models import Livro
 from cliente.models import Cliente
-
-# Mudar o user para cliente
-
 
 class GerenciadorCarrinho(models.Manager):
     def novo_ou_existente(self, request):
@@ -31,34 +29,18 @@ class GerenciadorCarrinho(models.Manager):
                 cliente = user
         return self.model.objects.create(user=cliente)
 
-
 class Carrinho(models.Model):
-    cliente = models.ForeignKey(
-        Cliente, on_delete=models.CASCADE, null=True, blank=True)
-    livros = models.ManyToManyField(Livro, blank=True)
-    subtotal = models.DecimalField(
-        default=0.00, max_digits=100, decimal_places=2)
-    total = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    livros = models.ManyToManyField(Livro, through='ItemCarrinho')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    objects = GerenciadorCarrinho()
-
-    def __str__(self):
-        return str(self.id)
-
-
-def modificacao_carrinho(sender, instance, action, *args, **kwargs):
-    if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
-        livros = instance.livros.all()
-        total = 0
-        for livro in livros:
-            total += livro.valor
-        if instance.subtotal != total:
-            instance.subtotal = total
-            instance.save()
-
-
-m2m_changed.connect(modificacao_carrinho, sender=Carrinho.livros.through)
-
+class ItemCarrinho(models.Model):
+    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE)
+    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 def pre_salvar_carrinho(sender, instance, *args, **kwargs):
     if instance.subtotal > 0:
@@ -66,9 +48,7 @@ def pre_salvar_carrinho(sender, instance, *args, **kwargs):
     else:
         instance.total = 0.00
 
-
 pre_save.connect(pre_salvar_carrinho, sender=Carrinho)
-
 
 class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)

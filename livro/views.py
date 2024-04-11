@@ -1,10 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, Http404
-from .forms import LivroForm, AutoresForm
-from .models import Livro, Genero, Autores, Editora
-from django.views.generic import ListView, DetailView
+from django.http import Http404, JsonResponse
 from django.contrib import messages
-
+from .forms import LivroForm
+from .models import Livro, Genero, Autores
+from pedidos.models import Carrinho, ItemCarrinho
 
 def listar_livros(request):
     livros = Livro.objects.all()
@@ -44,3 +43,17 @@ def detalhe_livro(request, id=None):
         'form_livro': form_livro,
     }
     return render(request, "detalhe_livro.html", context)
+
+def adicionar_ao_carrinho(request):
+    if request.method == 'POST' and request.is_ajax():
+        livro_id = request.POST.get('livro_id')
+        livro = get_object_or_404(Livro, id=livro_id)        
+        carrinho, cria = Carrinho.objects.novo_ou_existente(request)
+        livro_carrinho, novo_livro = ItemCarrinho.objects.get_or_create(carrinho=carrinho, livro=livro)
+        
+        if not novo_livro:
+            livro_carrinho.quantidade += 1 
+            livro_carrinho.save()
+
+        return JsonResponse({'success': True})    
+    return JsonResponse({'error': 'Invalid request'})

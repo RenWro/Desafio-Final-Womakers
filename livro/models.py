@@ -1,10 +1,8 @@
 from django.db import models
 
-
 class Editora(models.Model):
     nome = models.CharField(max_length=150)
     cnpj = models.IntegerField()
-
 
 class Genero(models.Model):
     class Meta:
@@ -14,7 +12,6 @@ class Genero(models.Model):
 
     def __str__(self):
         return self.nome
-
 
 class Autores(models.Model):
     class Meta:
@@ -26,6 +23,16 @@ class Autores(models.Model):
     def __str__(self):
         return self.nome
 
+class Livro(models.Model):
+    isbn = models.IntegerField()
+    titulo = models.CharField(max_length=150)
+    valor = models.FloatField()
+    estoque = models.IntegerField()
+    descricao = models.CharField(max_length=200)
+    editora = models.ForeignKey(Editora, on_delete=models.DO_NOTHING)
+    id_genero = models.ForeignKey(Genero, on_delete=models.DO_NOTHING)
+    autores = models.ManyToManyField(Autores)
+    imagem_capa = models.ImageField(upload_to='img/livros/capas', null=True, blank=True)
 
 # class Pedidos(models.Model):
 #     class Meta:
@@ -40,15 +47,3 @@ class Autores(models.Model):
 #     data = models.DateTimeField()
 #     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 #     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-
-
-class Livro(models.Model):
-    isbn = models.IntegerField()
-    titulo = models.CharField(max_length=150)
-    valor = models.FloatField()
-    estoque = models.IntegerField()
-    descricao = models.CharField(max_length=200)
-    editora = models.ForeignKey(Editora, on_delete=models.DO_NOTHING)
-    id_genero = models.ForeignKey(Genero, on_delete=models.DO_NOTHING)
-    autores = models.ManyToManyField(Autores)
-    imagem_capa = models.ImageField(upload_to='img/livros/capas', null=True, blank=True)
