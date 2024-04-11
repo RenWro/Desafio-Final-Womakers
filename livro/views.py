@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, JsonResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .forms import LivroForm
 from .models import Livro, Genero, Autores
 from pedidos.models import Carrinho, Pedido, CarrinhoLivro
 from cliente.models import Cliente
+
 
 
 def listar_livros(request):
@@ -47,13 +49,17 @@ def detalhe_livro(request, id=None):
     return render(request, "detalhe_livro.html", context)
 
 
+@login_required
 def adicionar_ao_carrinho(request):
-    livro_id = request.POST['livro_id']
-    quantidade = request.POST['quantidade']
-    cliente = request.user
-    carrinho = Carrinho()
-    carrinho.add_item_carrinho(
-        cliente_id=cliente.id, livro_id=livro_id, quantidade=quantidade)
+    if request.user.is_authenticated:
+        livro_id = request.POST.get('livro_id')
+        quantidade = request.POST.get('quantidade')
+        cliente = request.user
+        carrinho = Carrinho()
+        carrinho.add_item_carrinho(
+            cliente_id=cliente.id, livro_id=livro_id, quantidade=quantidade)
 
-    messages.success(request, 'Livro adicionado ao carrinho')
-    return redirect(f'/livro/detalhe_livro/{livro_id}')
+        messages.success(request, 'Livro adicionado ao carrinho')
+        return redirect(f'/livro/detalhe_livro/{livro_id}')
+    else:
+        return redirect('/')
