@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import LivroForm
 from .models import Livro, Genero, Autores
 from pedidos.models import Carrinho, Pedido, CarrinhoLivro
+from cliente.models import Cliente
 
 
 def listar_livros(request):
@@ -49,10 +50,10 @@ def detalhe_livro(request, id=None):
 def adicionar_ao_carrinho(request):
     livro_id = request.POST['livro_id']
     quantidade = request.POST['quantidade']
-    cliente_id = request.POST['cliente_id']
+    cliente = request.user
     carrinho = Carrinho()
     carrinho.add_item_carrinho(
-        cliente_id=cliente_id, livro_id=livro_id, quantidade=quantidade)
+        cliente_id=cliente.id, livro_id=livro_id, quantidade=quantidade)
 
     messages.success(request, 'Livro adicionado ao carrinho')
     return redirect(f'/livro/detalhe_livro/{livro_id}')

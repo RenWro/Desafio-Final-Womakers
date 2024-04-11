@@ -30,23 +30,24 @@ class FormaPagamento(Enum):
 class Carrinho(models.Model):
     cliente = models.ForeignKey(
         Cliente, on_delete=models.CASCADE)
-    livros = models.ManyToManyField(
-        Livro, through='CarrinhoLivro')
+    # livros = models.ManyToManyField(Livro)
 
     def add_item_carrinho(self, cliente_id, livro_id, quantidade=1):
         livro = Livro.objects.get(pk=livro_id)
-        carrinho = Carrinho(cliente_id=cliente_id)
-        carrinho.save()
+        cliente = Cliente.objects.get(pk=cliente_id)
+
+        # Verifica se o cliente já tem um carrinho
+        carrinho = cliente.carrinho_set.first()
+        if not carrinho:
+            carrinho = Carrinho.objects.create(cliente=cliente)
+            carrinho.save()
 
         # Verifica se o livro já está no carrinho
         carrinho_livro, created = CarrinhoLivro.objects.get_or_create(
             carrinho=carrinho, livro=livro)
-
         if not created:
-            # Se o livro já estiver no carrinho, atualiza a quantidade
-            carrinho_livro.quantidade += quantidade
+            carrinho_livro.quantidade += int(quantidade)
         else:
-            # Se o livro não estiver no carrinho, cria uma nova instância de CarrinhoLivro
             carrinho_livro.quantidade = quantidade
         carrinho_livro.save()
 
