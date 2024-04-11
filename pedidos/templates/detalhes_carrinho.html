@@ -29,7 +29,7 @@
   <div class="container page">
     </br><h1>Detalhes do carrinho</h1></br>
 
-    <h4 class="card-title">Olá {{ cliente.nome }}! </h4>
+    <h2 class="card-title">Olá {{ cliente.nome }}! </h2>
     {% if carrinho_vazio %}
 
       {{ carrinho }}
@@ -38,9 +38,10 @@
       
       <p class="card-text">
       Itens adicionados ao carrinho: 
-       
-        {% for item in carrinho.all %}
-          {{ item }} 
+        {% for item in carrinho %}
+          <h4>{{item.titulo}}</h4>
+          <p>Quantidade: {{ item.quantidade }} </p>
+          <p>Valor Unitário: {{item.valor}} </p>
         {% endfor %}
       </p>
     </div>

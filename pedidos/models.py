@@ -56,15 +56,13 @@ class Carrinho(models.Model):
         pass
 
     def ver_detalhes(self):
-        print('verDetalhes()')
-
         detalhes = []
-        for item in self.CarrinhoLivro_set.all():
+        for item in self.carrinholivro_set.all():
             detalhes.append({
-                'livro': item.livro.titulo,
+                'titulo': item.livro.titulo,
                 'quantidade': item.quantidade,
-                'preco_unitario': item.livro.preco,  # Supondo que 'Livro' tenha um campo 'preco'
-                'subtotal': item.quantidade * item.livro.preco
+                'valor': item.livro.valor,
+                # 'subtotal': item.quantidade * item.livro.preco
             })
         return detalhes
 

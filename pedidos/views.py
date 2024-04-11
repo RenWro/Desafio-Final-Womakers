@@ -20,7 +20,7 @@ def detalhes_carrinho(request):
     detalhes_do_carrinho = 'Seu carrinho ainda está vazio.'
     carrinho_vazio = True
     if Carrinho.objects.filter(cliente=cliente).exists():
-        carrinho_do_usuario = Carrinho.objects.get(cliente=cliente)
+        carrinho_do_usuario = Carrinho.objects.filter(cliente=cliente).last()
         detalhes_do_carrinho = carrinho_do_usuario.ver_detalhes()
         carrinho_vazio = False
 
