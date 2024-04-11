@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- link do estilo css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'estilo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'estilo.css'%}">
 
     <!-- links das fontes da tipografia -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,15 +33,15 @@
                 <img class="img-fluid" src="{% static './assets/img/logo.png' %}" alt="" width="197" height="137">
             </a>
             <div class="col-8 row">
-                <!-- esse search bar foi tirado direto do site do bootstrap, nada diferente foi adicionado -->
                 <div class="input-group flex-nowrap">
-                    <input type="text" class="form-control input-bar" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                    <span class="input-group-text" id="addon-wrapping">
-                        <!-- ícone utilizado também direto do bootstrap -->
-                        <i class="bi bi-search"></i>
-                    </span>
+                  <form class="search-container justify-content-center" action="/search/" method="get">
+                    <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?">
+                    <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar">
+                      <i class="bi bi-search justify-left"></i>
+                    </button>
+                  </form>
                 </div>
-            </div>
+              </div>
             <!-- navbar do menu de botões do header -->
             <nav class="col-2 nav justify-content-center">
                 <!-- botão de perfil do usuário -->
