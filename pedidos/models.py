@@ -82,6 +82,12 @@ class Carrinho(models.Model):
         print('finalizarPedido()')
         pass
 
+    def calcular_total(self):
+        total = 0
+        for livros in self.carrinholivro_set.all():
+            total += converter_realbr_para_float(livros.livro.valor) * livros.quantidade
+        total_formatado = "{:.2f}".format(total)
+        return total
 
 # Classe que relaciona a quantidade de livros a classe Livros
 class CarrinhoLivro(models.Model):

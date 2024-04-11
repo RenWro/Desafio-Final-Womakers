@@ -22,12 +22,14 @@ def detalhes_carrinho(request):
     if Carrinho.objects.filter(cliente=cliente).exists():
         carrinho_do_usuario = Carrinho.objects.filter(cliente=cliente).last()
         detalhes_do_carrinho = carrinho_do_usuario.ver_detalhes()
+        valor_total_carrinho = carrinho_do_usuario.calcular_total()
         carrinho_vazio = False
 
     context = {
         'carrinho_vazio': carrinho_vazio,
         'carrinho': detalhes_do_carrinho,
-        'cliente': cliente
+        'cliente': cliente,
+        'valor_total': valor_total_carrinho,
     }
     return render(request, 'detalhes_carrinho.html', context)
 
