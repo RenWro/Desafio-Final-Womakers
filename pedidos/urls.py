@@ -8,5 +8,5 @@ urlpatterns = [
     path('finalizar/<int:cliente_id>/',
          finalizar_pedido, name='finalizar_pedido'),
     path('carrinho/', atualizar_carrinho, name='atualizar_carrinho'),
-    path('detalhes_carrinho/', detalhar_carrinho, name='detalhes_carrinho'),
+    path('detalhes_carrinho/', detalhes_carrinho, name='detalhes_carrinho'),
 ]

@@ -67,24 +67,6 @@
     </div>
     </br>
 
-
-  {% comment %} <div class="container page">
-    <form action="" method="POST" class="formCadastro" enctype="multipart/form-data">
-      {% csrf_token %}
-      <h1>Cadastro</h1> </br>
-     
-      <h5>Dados Pessoais</h5>
-      {% bootstrap_form cliente_form %}
-      
-      <h5>Endereço</h5>
-      {{ endereco_formset.management_form }}
-      {% for form in endereco_formset %}
-        {% bootstrap_form form%}
-      {% endfor %} 
-    <button type="submit" class="btn"> Cadastrar </button>
-    </form> 
-  </div> {% endcomment %}
-
   <footer class="container">
     <span class="separator">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

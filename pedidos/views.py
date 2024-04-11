@@ -3,51 +3,22 @@ from pedidos.models import Pedido, Carrinho
 from livro.models import Livro
 from django.http import JsonResponse
 # Create your views here.
+# PRIMEIRO CARRINHO DEPOIS PEDIDOS
 
-def listar_pedidos_cliente(request, cliente_id):
-    # Filtra os pedidos do cliente e os ordena por data, da mais recente para a mais antiga
-    pedidos = Pedido.objects.filter(cliente_id=cliente_id).order_by('-data_pedido')
-    return render(request, 'listar_pedidos_cliente.html', {'pedidos': pedidos})
-
-def detalhar_pedido(request, pedido_id):
-    pedido = get_object_or_404(Pedido, pk=pedido_id)
-    return render(request, 'detalhes_pedido.html', {'pedido': pedido})
-
-def finalizar_pedido(request, cliente_id):
-    '''
-    Aqui vai ser criado um pedido de fato?
-
-    Pegar todos os dados do SPAN???
-
-    '''
-    if request.method == 'POST':
-        formulario = Pedido(request.POST)
-        if formulario.is_valid():
-            # Crie um objeto Pedido com os dados do formulário e o ID do cliente
-            pedido = formulario.save(commit=False)
-            pedido.cliente_id = cliente_id  # Associar o pedido ao cliente específico
-            pedido.save()
-            # PEDIDO CONCLUÍDO COM SUCESSO
-            return redirect('pagina_de_sucesso')  # Redirecionar para a página de sucesso
-    else:
-        formulario = Pedido()
-    
-    return render(request, 'detalhes_pedido.html', {'formulario': formulario})
+# CARRINHO
 
 
 def ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
-def detalhar_carrinho(request):
-    item_carr, novo_item = Carrinho.objects.novo_ou_existente(request)
-    livros = [{
-        "id": x.id,
-        "url": x.get_absolute_url(), 
-        "titulo": x.titulo, 
-        "valor": x.valor
-        } for x in item_carr.livros.all()]
-    data = {"livros": livros, "subtotal": item_carr.subtotal, "total": item_carr.total}
-    return JsonResponse(data)
+
+def detalhes_carrinho(request):
+    detalhes_do_carrinho = Carrinho.ver_detalhes(request.user)
+    context = {
+        'carrinho': detalhes_do_carrinho,
+    }
+    return render(request, 'detalhes_carrinho.html', context)
+
 
 def atualizar_carrinho(request):
     livro_id = request.POST.get('livro_id')
@@ -64,7 +35,8 @@ def atualizar_carrinho(request):
         else:
             item_carr.livros.add(item_livro)
             adicionar = True
-        request.session['cart_items'] = item_carr.livros.count() # login do usuário, talvez tenha q alterar
+        # login do usuário, talvez tenha q alterar
+        request.session['cart_items'] = item_carr.livros.count()
         if ajax(request):
             print("Ajax request")
             json_data = {
@@ -73,8 +45,46 @@ def atualizar_carrinho(request):
                 "contagemLivros": item_carr.livros.count()
             }
             return JsonResponse(json_data)
-            #return JsonResponse({"message": "Erro 400"}, status = 400)
-    return redirect("home.html")
+            # return JsonResponse({"message": "Erro 400"}, status = 400)
+    return redirect("/")
+
+
+# PEDIDOS
+
+def listar_pedidos_cliente(request, cliente_id):
+    # Filtra os pedidos do cliente e os ordena por data, da mais recente para a mais antiga
+    pedidos = Pedido.objects.filter(
+        cliente_id=cliente_id).order_by('-data_pedido')
+    return render(request, 'listar_pedidos_cliente.html', {'pedidos': pedidos})
+
+
+def detalhar_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, pk=pedido_id)
+    return render(request, 'detalhes_pedido.html', {'pedido': pedido})
+
+
+def finalizar_pedido(request, cliente_id):
+    '''
+    Aqui vai ser criado um pedido de fato?
+
+    Pegar todos os dados do SPAN???
+
+    '''
+    if request.method == 'POST':
+        formulario = Pedido(request.POST)
+        if formulario.is_valid():
+            # Crie um objeto Pedido com os dados do formulário e o ID do cliente
+            pedido = formulario.save(commit=False)
+            pedido.cliente_id = cliente_id  # Associar o pedido ao cliente específico
+            pedido.save()
+            # PEDIDO CONCLUÍDO COM SUCESSO
+            # Redirecionar para a página de sucesso
+            return redirect('pagina_de_sucesso')
+    else:
+        formulario = Pedido()
+
+    return render(request, 'detalhes_pedido.html', {'formulario': formulario})
+
 
 '''
 CRIAR LÓGICA DO CARRINHO PRA FICAR NO SPAM
