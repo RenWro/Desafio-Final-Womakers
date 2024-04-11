@@ -26,6 +26,8 @@ class Autores(models.Model):
     def __str__(self):
         return self.nome
 
+class Livros(models.Model):
+ imagem = models.ImageField(upload_to="{% static 'static\img\capas' %}")
 
 # class Pedidos(models.Model):
 #     class Meta:
