@@ -38,6 +38,7 @@ class ClienteForm(forms.ModelForm):
 
 EnderecoFormSet = inlineformset_factory(
     Cliente, Endereco, max_num=1,
+    can_delete=False,
     fields=('rua', 'numero', 'complemento', 'cidade', 'estado', 'cep'),
     labels={
         'rua': 'Rua',

@@ -12,7 +12,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title> Login </title>
-  <link rel="stylesheet" href="{% static 'css/login.css' %}">  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'css/cliente.css' %}"> 
+  <link rel="stylesheet" href="{% static 'style.css' %}">  
+  <title>Login</title>
 </head>
 
 
@@ -35,7 +37,7 @@
       <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Seu email" required="" autofocus="">            
       <label for="inputPassword" class="sr-only">Senha</label>            
       <input type="password" id="inputPassword" name="senha" class="form-control" placeholder="Senha" required="" autofocus="">            
-      <a class="label-link position-absolute top-0 right-0" id="forgot-password" href="">Esqueceu a senha?</a>
+      {% comment %} <a class="label-link position-absolute top-0 right-0" id="forgot-password" href="">Esqueceu a senha?</a> {% endcomment %}
       <button class="btn" id="submitButton" type="submit">Entrar</button>
     </form>
     <form action="/cliente/cadastro/"  class="formLogin">
