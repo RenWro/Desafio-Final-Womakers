@@ -1,0 +1,84 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search Results</title>
+
+  <!-- Links do bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- link dos ícones do bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- link do estilo css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'estilo.css'%}">
+
+  <!-- links das fontes da tipografia -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="container">
+    <div class="row align-items-center">
+      <a class="col-2" href="/">
+        <img class="img-fluid" src="{% static './assets/img/logo.png' %}" alt="" width="197" height="137">
+      </a>
+      <div class="col-8 row">
+        <div class="input-group flex-nowrap">
+          <form class="search-container justify-content-center" action="/search/" method="get">
+            <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?">
+            <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar">
+              <i class="bi bi-search justify-left"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- navbar do menu de botões do header -->
+      <nav class="col-2 nav justify-content-center">
+        <!-- botão de perfil do usuário -->
+        <a class="nav-link active" aria-current="page" href="/cliente/perfil/">
+          <img src="{% static './assets/svg/profile.svg' %}" alt="" width="46" height="46">
+        </a>
+        <!-- botão do carrinho -->
+        <a class="nav-link" href="/pedido/carrinho/">
+          <img src="{% static './assets/svg/cart.svg' %}" alt="" width="46" height="46">
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <span class="separator">
+    Categorias
+  </span>
+
+  <main>
+    <section class="container">
+      <div class="row align-items-center">
+        {% if query %}
+        <h2>Resultados da busca por "{{ query }}"</h2>
+        {% if results %}
+        {% for livro in results %}
+        <div class="col-4">
+          <img class="img-fluid" src="{% static 'media/' %}{{ livro.imagem_capa }}" alt="{{ livro.titulo }}" width="335" height="509">
+        </div>
+        <div class="col">
+          <a href="/livro/detalhe_livro/{{ livro.id }}/" class="botaozin">VER LIVRO</a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>Nenhum resultado encontrado.</p>
+        {% endif %}
+        {% endif %}
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>
