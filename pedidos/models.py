@@ -107,8 +107,7 @@ class Pedido(models.Model):  #
     forma_pagamento = models.CharField(max_length=20)
     status = EnumField(StatusPedido, max_length=20,
                        default=StatusPedido.PENDENTE)
-    forma_de_pagamento = EnumField(
-        FormaPagamento, max_length=20, default=FormaPagamento.CREDITO)
+    forma_de_pagamento = EnumField(FormaPagamento, max_length=20, default=FormaPagamento.CREDITO)
 
     def calcular_valor_total(self):
         valor_total = 0
@@ -116,6 +115,6 @@ class Pedido(models.Model):  #
             valor_total += item.valor_unitario * item.quantidade
         return valor_total
 
-    def finalizar_pedido(self):
-        print('finalizar_pedido()')
-        pass
+    # def finalizar_pedido(self):
+    #     print('finalizar_pedido()')
+    #     pass

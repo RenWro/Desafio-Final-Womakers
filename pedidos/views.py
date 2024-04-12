@@ -3,6 +3,7 @@ from pedidos.models import Pedido, Carrinho
 from livro.models import Livro
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from pedidos.forms import PedidoForm
 
 # Create your views here.
 # PRIMEIRO CARRINHO DEPOIS PEDIDOS
@@ -77,27 +78,49 @@ def detalhar_pedido(request, pedido_id):
     return render(request, 'detalhes_pedido.html', {'pedido': pedido})
 
 
-def finalizar_pedido(request, cliente_id):
-    '''
-    Aqui vai ser criado um pedido de fato?
+# def finalizar_pedido(request, cliente_id):
+    
+#     if request.method == 'POST':
+#         formulario = Pedido(request.POST)
+#         if formulario.is_valid():
+#             # Crie um objeto Pedido com os dados do formulário e o ID do cliente
+#             pedido = formulario.save(commit=False)
+#             pedido.cliente_id = cliente_id  # Associar o pedido ao cliente específico
+#             pedido.save()
+#             # PEDIDO CONCLUÍDO COM SUCESSO
+#             # Redirecionar para a página de sucesso
+#             return redirect('pagina_de_sucesso')
+#     else:
+#         formulario = Pedido()
 
-    Pegar todos os dados do SPAN???
+#     return render(request, 'detalhes_pedido.html', {'formulario': formulario})
 
-    '''
+from django.urls import reverse
+from django.shortcuts import redirect
+
+def finalizar_pedido(request):
     if request.method == 'POST':
-        formulario = Pedido(request.POST)
-        if formulario.is_valid():
-            # Crie um objeto Pedido com os dados do formulário e o ID do cliente
-            pedido = formulario.save(commit=False)
-            pedido.cliente_id = cliente_id  # Associar o pedido ao cliente específico
+        form = PedidoForm(request.POST)
+        if form.is_valid():
+            pedido = form.save(commit=False)      
+            # Verifica se o usuário está autenticado
+            if request.user.is_authenticated:
+                # Se estiver autenticado, associa o pedido ao cliente atual
+                pedido.cliente = request.user  # Assumindo que o cliente atual está autenticado
+            # Salva o pedido
             pedido.save()
-            # PEDIDO CONCLUÍDO COM SUCESSO
-            # Redirecionar para a página de sucesso
-            return redirect('pagina_de_sucesso')
-    else:
-        formulario = Pedido()
 
-    return render(request, 'detalhes_pedido.html', {'formulario': formulario})
+            id_do_pedido = pedido.id
+            # Redireciona para o checkout com o ID do pedido
+            url_checkout = reverse('pagamento:checkout', kwargs={'id': id_do_pedido})
+            print(url_checkout)
+            return redirect(url_checkout)
+    else:
+        form = PedidoForm()
+
+    return render(request, 'lista_livros.html', {'form': form})
+
+
 
 
 '''

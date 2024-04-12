@@ -50,8 +50,13 @@
 
     <p> </p>
     <h4>Valor Total: R$ {{ valor_total }}</h4>
-    <a href="pedido/finalizar?id={{ user.id }}/" class="btn-checkout btn-primary">Finalizar compra</a>
-
+    <!-- <a href="finalizar_pedido.html" class="btn-checkout btn-primary">Finalizar compra</a> -->
+    <form method="post" action="{% url 'pedidos:finalizar_pedido' %}">
+      {% csrf_token %}
+      <input type="hidden" name="valor_total" value="{{ valor_total }}">
+      <input type="submit" value="Finalizar compra" class="btn-checkout btn-primary">
+  </form>
+  
   </div>
   </br>
 
