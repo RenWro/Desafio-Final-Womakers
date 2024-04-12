@@ -82,6 +82,9 @@
                         {{ autor.nome }} {{ autor.sobrenome }}
                       {% endfor %}
                     </p>
+                    <p class="card-text">
+                      Preço: {{ livro.valor }}
+                    </p>
                     <a href="/livro/detalhe_livro/{{livro.id}}" class="btn-livros btn-primary">Ver Mais</a>
                   </div>
                 </div>
