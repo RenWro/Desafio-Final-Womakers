@@ -11,8 +11,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Perfil do Cliente</title>
-  <link rel="stylesheet" href="{% static 'css/cliente.css' %}">
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <base href="/">
+  <link rel="stylesheet" href="{% static 'css\detalhes_carrinho.css'%}">
 </head>
 
 <body>
@@ -50,6 +50,8 @@
 
     <p> </p>
     <h4>Valor Total: R$ {{ valor_total }}</h4>
+    <a href="pedido/finalizar?id={{ user.id }}/" class="btn-checkout btn-primary">Finalizar compra</a>
+
   </div>
   </br>
 
