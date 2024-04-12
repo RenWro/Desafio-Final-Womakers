@@ -111,7 +111,15 @@
 
         <div class="cart-summary">
           </br><p class = "h3">Valor Total: R$ {{valor_total}} </p></br>
-          <a href="#" class="btn btn-lg btn-secundary">Finalizar</a>
+
+          <form action="/pedido/finalizar_pedido/" method="POST">
+            {% csrf_token %}
+            {% comment %} <input type="hidden" name="livro_id" value="{{ livro.id }}">
+            <input type="hidden" name="carrinho_id" value="{{ carrinho.id }}"> {% endcomment %}
+            <button class="btn btn-lg btn-secundary">Finalizar</button>
+          </form>
+          
+          
           </br>
         </div>
 

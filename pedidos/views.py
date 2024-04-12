@@ -92,7 +92,13 @@ def detalhar_pedido(request, pedido_id):
     return render(request, 'detalhes_pedido.html', {'pedido': pedido})
 
 
-def finalizar_pedido(request, cliente_id):
+def finalizar_pedido(request):
+    messages.success(request, "Pedido efetuado com sucesso")
+    return render(request, 'finalizar_pedido.html')
+
+
+# Essa funcao ainda nao foi finalizada.
+def nao_finalizado_finalizar_pedido(request, cliente_id):
     '''
     Aqui vai ser criado um pedido de fato?
 
