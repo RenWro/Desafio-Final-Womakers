@@ -142,3 +142,22 @@ footer {
     font-weight: bold;
 }
 
+.botaozin {
+    margin-left: 20px;
+    background: linear-gradient(306deg, rgba(246,136,77,1) 10%, rgba(255,203,175,1) 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 5px 20px;
+    color: white;
+    font-weight: bold;
+    background-size: 200% 100%;
+    text-decoration: none;
+}
+
+.botaozin:hover {
+    background-position: 100% 0;
+    transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}

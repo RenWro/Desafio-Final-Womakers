@@ -2,12 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 from .forms import LivroForm
 from .models import Livro, Genero, Autores
 from pedidos.models import Carrinho, Pedido, CarrinhoLivro
-from cliente.models import Cliente
-
-
 
 def listar_livros(request):
     livros = Livro.objects.all()
@@ -63,3 +61,12 @@ def adicionar_ao_carrinho(request):
         return redirect(f'/livro/detalhe_livro/{livro_id}')
     else:
         return redirect('/')
+
+def search_view(request):
+    query = request.GET.get('q')
+    results = None
+
+    if query:
+        results = Livro.objects.filter(titulo__icontains=query)
+
+    return render(request, 'search_results.html', {'query': query, 'results': results})
