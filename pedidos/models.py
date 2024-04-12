@@ -83,6 +83,7 @@ class Carrinho(models.Model):
                 'livro_id': item.livro.id,
                 'carrinho_id': item.carrinho.id,
                 'titulo': item.livro.titulo,
+                'imagem_capa': item.livro.imagem_capa,
                 'quantidade': int(item.quantidade),
                 'valor': item.livro.valor,
                 'valor_float': converter_realbr_para_float(item.livro.valor),
@@ -101,9 +102,8 @@ class Carrinho(models.Model):
                 livros.livro.valor) * livros.quantidade
         return round(total, 2)
 
+
 # Classe que relaciona a quantidade de livros a classe Livros
-
-
 class CarrinhoLivro(models.Model):
     carrinho = models.ForeignKey(
         Carrinho, on_delete=models.CASCADE, null=True, blank=True)

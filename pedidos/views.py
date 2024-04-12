@@ -16,6 +16,7 @@ def detalhes_carrinho(request):
     cliente = request.user
     detalhes_do_carrinho = 'Seu carrinho ainda está vazio.'
     carrinho_vazio = True
+    valor_total_carrinho = 0
     if Carrinho.objects.filter(cliente=cliente).exists():
         carrinho_do_usuario = Carrinho.objects.filter(cliente=cliente).last()
         detalhes_do_carrinho = carrinho_do_usuario.ver_detalhes()
