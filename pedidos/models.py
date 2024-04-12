@@ -35,17 +35,17 @@ def converter_realbr_para_float(string_valor):
     return valor_float
 
 
+def verificar_disponivel_em_estoque(livro_id, quantidade):
+    disponivel_em_estoque = False
+    livro = Livro.objects.get(pk=livro_id)
+    if livro.estoque >= quantidade:
+        disponivel_em_estoque = True
+    return disponivel_em_estoque
+
+
 class Carrinho(models.Model):
     cliente = models.ForeignKey(
         Cliente, on_delete=models.CASCADE)
-    # livros = models.ManyToManyField(Livro)
-
-    def verificar_disponivel_em_estoque(self, livro_id, quantidade):
-        disponivel_em_estoque = False
-        livro = Livro.objects.get(pk=livro_id)
-        if livro.estoque >= quantidade:
-            disponivel_em_estoque = True
-        return disponivel_em_estoque
 
     def add_item_carrinho(self, cliente_id, livro_id, quantidade=1):
         livro = Livro.objects.get(pk=livro_id)
@@ -62,7 +62,7 @@ class Carrinho(models.Model):
             carrinho=carrinho, livro=livro)
 
         # Verifica se a quantide está disponivel em estoque.
-        if not self.verificar_disponivel_em_estoque(livro_id, int(carrinho_livro.quantidade)+quantidade):
+        if not verificar_disponivel_em_estoque(livro_id, int(carrinho_livro.quantidade)+quantidade):
             return 'Quantidade indisponível em estoque'
 
         if not created:
@@ -80,6 +80,8 @@ class Carrinho(models.Model):
         detalhes = []
         for item in self.carrinholivro_set.all():
             detalhes.append({
+                'livro_id': item.livro.id,
+                'carrinho_id': item.carrinho.id,
                 'titulo': item.livro.titulo,
                 'quantidade': int(item.quantidade),
                 'valor': item.livro.valor,

@@ -1,17 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from pedidos.models import Pedido, Carrinho
+from pedidos.models import Pedido, Carrinho, CarrinhoLivro
 from livro.models import Livro
-from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-
-# Create your views here.
-# PRIMEIRO CARRINHO DEPOIS PEDIDOS
+from django.contrib import messages
 
 # CARRINHO
 
 
-def ajax(request):
-    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+# def ajax(request):
+#     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
 @login_required
@@ -34,33 +31,50 @@ def detalhes_carrinho(request):
     return render(request, 'detalhes_carrinho.html', context)
 
 
-def atualizar_carrinho(request):
+@login_required
+def excluir_item_carrinho(request):
     livro_id = request.POST.get('livro_id')
-    if livro_id is not None:
-        try:
-            item_livro = Livro.objects.get(id=livro_id)
-        except Livro.DoesNotExist:
-            print("Esse livro acabou!")
-            return redirect("home.html")
-        item_carr, novo_item = Carrinho.objects.novo_ou_existente(request)
-        if item_livro in item_carr.livros.all():
-            item_carr.livros.remove(item_livro)
-            adicionar = False
-        else:
-            item_carr.livros.add(item_livro)
-            adicionar = True
-        # login do usuário, talvez tenha q alterar
-        request.session['cart_items'] = item_carr.livros.count()
-        if ajax(request):
-            print("Ajax request")
-            json_data = {
-                "adicionar": adicionar,
-                "remover": not adicionar,
-                "contagemLivros": item_carr.livros.count()
-            }
-            return JsonResponse(json_data)
-            # return JsonResponse({"message": "Erro 400"}, status = 400)
-    return redirect("/")
+    carrinho_id = request.POST.get('carrinho_id')
+    try:
+        livro = Livro.objects.get(id=livro_id)
+        carrinho = Carrinho.objects.get(id=carrinho_id)
+        carrinho_livro = CarrinhoLivro.objects.filter(carrinho=carrinho).all()
+        for item in carrinho_livro:
+            if item.livro == livro:
+                item.delete()
+        messages.success(request, 'Item excluido do carrinho com sucesso')
+    except:
+        messages.error(request, 'Não foi possível excluir item do carrinho.')
+    return redirect('/pedido/detalhes_carrinho/')
+
+
+# def atualizar_carrinho(request):
+#     livro_id = request.POST.get('livro_id')
+#     if livro_id is not None:
+#         try:
+#             item_livro = Livro.objects.get(id=livro_id)
+#         except Livro.DoesNotExist:
+#             print("Esse livro acabou!")
+#             return redirect("home.html")
+#         item_carr, novo_item = Carrinho.objects.novo_ou_existente(request)
+#         if item_livro in item_carr.livros.all():
+#             item_carr.livros.remove(item_livro)
+#             adicionar = False
+#         else:
+#             item_carr.livros.add(item_livro)
+#             adicionar = True
+#         # login do usuário, talvez tenha q alterar
+#         request.session['cart_items'] = item_carr.livros.count()
+#         if ajax(request):
+#             print("Ajax request")
+#             json_data = {
+#                 "adicionar": adicionar,
+#                 "remover": not adicionar,
+#                 "contagemLivros": item_carr.livros.count()
+#             }
+#             return JsonResponse(json_data)
+#             # return JsonResponse({"message": "Erro 400"}, status = 400)
+#     return redirect("/")
 
 
 # PEDIDOS
