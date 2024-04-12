@@ -37,12 +37,12 @@
         </a>
         <div class="col-8 row">
           <div class="input-group flex-nowrap">
-            <form class="search-container justify-content-center" action="/search/" method="get">
+            <form class="search-container justify-content-center" action="{% url 'Livros:search' %}" method="get">
               <input class="search-input form-control" autocomplete="off" type="search" name="q" placeholder="O que você está buscando?">
               <button type="submit" class="btn search-input-submit" value="Buscar" aria-label="Buscar">
-                <i class="bi bi-search justify-left"></i>
+                  <i class="bi bi-search justify-left"></i>
               </button>
-            </form>
+          </form>          
           </div>
         </div>
         <nav class="col-2 nav justify-content-center">
@@ -81,6 +81,9 @@
                       {% for autor in livro.autores.all %}
                         {{ autor.nome }} {{ autor.sobrenome }}
                       {% endfor %}
+                    </p>
+                    <p class="card-text">
+                      Preço: {{ livro.valor }}
                     </p>
                     <a href="/livro/detalhe_livro/{{livro.id}}" class="btn-livros btn-primary">Ver Mais</a>
                   </div>

@@ -74,7 +74,7 @@ class Carrinho(models.Model):
                 'quantidade': int(item.quantidade),
                 'valor': item.livro.valor,
                 'valor_float': converter_realbr_para_float(item.livro.valor),
-                'subtotal': int(item.quantidade)*converter_realbr_para_float(item.livro.valor),
+                'subtotal': round(int(item.quantidade)*converter_realbr_para_float(item.livro.valor), 2),
             })
         return detalhes
 
@@ -86,8 +86,7 @@ class Carrinho(models.Model):
         total = 0
         for livros in self.carrinholivro_set.all():
             total += converter_realbr_para_float(livros.livro.valor) * livros.quantidade
-        total_formatado = "{:.2f}".format(total)
-        return total
+        return round(total, 2)
 
 # Classe que relaciona a quantidade de livros a classe Livros
 class CarrinhoLivro(models.Model):
