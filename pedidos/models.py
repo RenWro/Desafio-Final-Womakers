@@ -28,12 +28,9 @@ class FormaPagamento(Enum):
 
 
 def converter_realbr_para_float(string_valor):
-    # Removendo caracteres que não são dígitos, ponto ou vírgula
     numeros = ''.join(caractere for caractere in string_valor if caractere.isdigit(
     ) or caractere == '.' or caractere == ',')
-    # Substituindo a vírgula por ponto (caso seja usada como separador decimal)
     numeros = numeros.replace(',', '.')
-    # Convertendo para float
     valor_float = float(numeros)
     return valor_float
 
@@ -42,6 +39,13 @@ class Carrinho(models.Model):
     cliente = models.ForeignKey(
         Cliente, on_delete=models.CASCADE)
     # livros = models.ManyToManyField(Livro)
+
+    def verificar_disponivel_em_estoque(self, livro_id, quantidade):
+        disponivel_em_estoque = False
+        livro = Livro.objects.get(pk=livro_id)
+        if livro.estoque >= quantidade:
+            disponivel_em_estoque = True
+        return disponivel_em_estoque
 
     def add_item_carrinho(self, cliente_id, livro_id, quantidade=1):
         livro = Livro.objects.get(pk=livro_id)
@@ -56,11 +60,17 @@ class Carrinho(models.Model):
         # Verifica se o livro já está no carrinho
         carrinho_livro, created = CarrinhoLivro.objects.get_or_create(
             carrinho=carrinho, livro=livro)
+
+        # Verifica se a quantide está disponivel em estoque.
+        if not self.verificar_disponivel_em_estoque(livro_id, int(carrinho_livro.quantidade)+quantidade):
+            return 'Quantidade indisponível em estoque'
+
         if not created:
-            carrinho_livro.quantidade += int(quantidade)
+            carrinho_livro.quantidade += quantidade
         else:
             carrinho_livro.quantidade = quantidade
         carrinho_livro.save()
+        return True
 
     def atualizar_quantidade(self, livro, nova_quantidade=1):
         print('atualizarQuantidade()')
@@ -85,10 +95,13 @@ class Carrinho(models.Model):
     def calcular_total(self):
         total = 0
         for livros in self.carrinholivro_set.all():
-            total += converter_realbr_para_float(livros.livro.valor) * livros.quantidade
+            total += converter_realbr_para_float(
+                livros.livro.valor) * livros.quantidade
         return round(total, 2)
 
 # Classe que relaciona a quantidade de livros a classe Livros
+
+
 class CarrinhoLivro(models.Model):
     carrinho = models.ForeignKey(
         Carrinho, on_delete=models.CASCADE, null=True, blank=True)

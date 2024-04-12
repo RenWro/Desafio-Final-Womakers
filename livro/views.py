@@ -7,6 +7,7 @@ from .forms import LivroForm
 from .models import Livro, Genero, Autores
 from pedidos.models import Carrinho, Pedido, CarrinhoLivro
 
+
 def listar_livros(request):
     livros = Livro.objects.all()
     form = LivroForm(request.GET)
@@ -51,16 +52,21 @@ def detalhe_livro(request, id=None):
 def adicionar_ao_carrinho(request):
     if request.user.is_authenticated:
         livro_id = request.POST.get('livro_id')
-        quantidade = request.POST.get('quantidade')
+        quantidade = int(request.POST.get('quantidade'))
         cliente = request.user
         carrinho = Carrinho()
-        carrinho.add_item_carrinho(
+        msg_retorno = carrinho.add_item_carrinho(
             cliente_id=cliente.id, livro_id=livro_id, quantidade=quantidade)
 
-        messages.success(request, 'Livro adicionado ao carrinho')
+        if msg_retorno == True:
+            messages.success(request, 'Livro adicionado ao carrinho')
+        else:
+            messages.error(request, msg_retorno)
+
         return redirect(f'/livro/detalhe_livro/{livro_id}')
     else:
         return redirect('/')
+
 
 def search_view(request):
     query = request.GET.get('q')
