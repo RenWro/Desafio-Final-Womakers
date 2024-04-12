@@ -5,6 +5,12 @@
   padding: 0px;
 }
 
+header {
+  background: #F9F7F3;
+  padding: 20px 0;
+  display: flex;
+  justify-content: left;
+}
 .formLogin {
   display: flex;
   flex-direction: column;
@@ -54,10 +60,8 @@
   transition: all linear 160ms;
    border-radius: 10px
 }
-
  
-.btn{
- 
+.btn{ 
   background: linear-gradient(306deg, rgba(246,136,77,1)10%, rgba(255,203,175,1)100%); 
   cursor: pointer;
   font-family: 'Titillium Web', sans-serif;
