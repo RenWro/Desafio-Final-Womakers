@@ -1,67 +1,148 @@
 {% load static %}
 {% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_messages %}
+
 
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Perfil do Cliente</title>
-  <link rel="stylesheet" href="{% static 'css/cliente.css' %}">
-  <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Perfil do Cliente</title>
+    <link rel="stylesheet" href="{% static 'css\styles.csss' %}">
+    <link    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-<body>
-  <header class="container">
-    <div class="row align-items-center">
-      <a class="col-2" href="/">
-        <div class="logo-img-container">
-          <img class="img-fluid" src="{% static './assets/img/logo.png' %}" alt="" width="197" height="137">
-        </div>
-      </a>
-    </div>
-  </header>
+  </head>
+ 
+  <body>
+    <header class="container">
+      <div class="row">
+        <a class="col-2" href="/">
+          <div class="logo-img-container">
+            <img class="img-fluid" src="{% static './assets/img/logo.png' %}" alt="" width="197" height="137">
+          </div>
+        </a>
+      </div>
+    </header>
+      <main>
 
-  <div class="container page">
-    </br>
-    <h1>Detalhes do carrinho</h1></br>
+      <span class="separator"></span>
 
-    <h2 class="card-title">Olá {{ cliente.nome }}! </h2>
-    {% if carrinho_vazio %}
+      {% if carrinho_vazio %}
 
-    {{ carrinho }}
-
-    {%else%}
-
-    <p class="card-text">
-      Itens adicionados ao carrinho:
-      {% for item in carrinho %}
-    <h4>{{item.titulo}}</h4>
-    <p>Quantidade: {{ item.quantidade }} </p>
-    <p>Valor Unitário: {{item.valor}} </p>
-    <p>Sub Total: R${{item.subtotal}}</p>
-
-    {% endfor %}
-    </p>
-
-    <p> </p>
-    <h4>Valor Total: R$ {{ valor_total }}</h4>
-  </div>
-  </br>
-
-
-  {%endif%}
-  </div>
-  <footer class="container">
-    <span class="separator">
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-      Copyright Womakers 2024. Todos os direitos reservados.
-    </span>
-  </footer>
-</body>
+      {{ carrinho }}
+    
+      {% else %}
+      
+        <div class="page-title"><h1>Detalhes do carrinho</h1></br>
+      
+          <h2 class="card-title">Olá {{ cliente.nome }}! </h2> 
+          <div class="content">
+            <section>
+            <table>
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Preço</th>
+                  <th>Quantidade</th>
+                  <th>Total</th>
+                  <th>-</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="product">
+                      {% if livro.imagem_capa %}
+                          <img src="{% static 'media/' %}{{ livro.imagem_capa }}" class="img-fluid rounded-start align-self-center" alt="{{ livro.titulo }}" width="150" height="150">
+                        {% else %}
+                          <img src="{% static 'media/unavailable.jpg' %}" alt="Image unavailable" class="img-fluid mb-3" width="26">
+                      {% endif %}
+                      <div class="info">
+                        {% for item in carrinho %}
+                        <div class="name">{{ item.titulo }}</div>
+                        <div class="category">Categoria</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>R$ {{ item.valor }}</td>
+                  <td>
+                    <div class="qty">
+                      <button><i class="bx bx-minus"></i></button>
+                      <span>{{ item.quantidade }}</span>
+                      <button><i class="bx bx-plus"></i></button>
+                    </div>
+                  </td>
+                  <td>somar o valor coma quantidade</td>
+                  <td>
+                    <button class="remove"><i class="bx bx-x"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product">
+                      <img src="https://picsum.photos/100/120" alt="" />
+                      <div class="info">
+                        <div class="name">Nome do produto</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>R$ 120</td>
+                  <td>
+                    <div class="qty">
+                      <button><i class="bx bx-minus"></i></button>
+                      <span>{{ item.quantidade }}</span>
+                      <button><i class="bx bx-plus"></i></button>
+                    </div>
+                  </td>
+                  <td>R$ {{ item.valor }}</td>
+                  <td>
+                    <button class="remove"><i class="bx bx-x"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product">
+                      <img src="https://picsum.photos/100/120" alt="" />
+                      <div class="info">
+                        <div class="name">Nome do produto</div>
+                        <div class="category">Categoria</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>R$ 120</td>
+                  <td>
+                    <div class="qty">
+                      <button><i class="bx bx-minus"></i></button>
+                      <span>2</span>
+                      <button><i class="bx bx-plus"></i></button>
+                    </div>
+                  </td>
+                  <td>R$ 240</td>
+                  <td>
+                    <button class="remove"><i class="bx bx-x"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <aside>
+           
+              <div class="cart-item">
+                <p><li class="list-group-item">Sub Total: R$ {{ item.subtotal }}</p></li>
+                <p><li class="list-group-item">Valor Total: R$ {{ valor_total }}</p></li>
+                <a href=" " class="btn-checkout btn-primary">Finalizar compra</a></li>
+              </div>
+            {% endfor %}      
+      {% endif %}
+    </main>
+    <footer class="container">
+      <span class="separator">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        Copyright Womakers 2024. Todos os direitos reservados.
+      </span>
+    </footer>
+  </body>
 
 </html>
