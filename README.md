@@ -2,7 +2,9 @@
 <h3>Squad Marie Curie + Jill Tarter</h3>
 
 <br>
-Link da distribuição de tarefas Trello: 
+<h1> Deploy </h1>
+
+https://paulagmborges.pythonanywhere.com
 
 <br>
 <h3>Integrantes:</h3>
